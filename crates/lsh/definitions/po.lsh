@@ -1,0 +1,12 @@
+#[display_name = "PO"]
+#[path = "**/*.po"]
+pub fn po() {
+    if /#.*/ {
+        yield comment;
+    } else if /(msgid|msgstr)/ {
+        yield keyword.other;
+    } else if /\{[0-9]\}/ {
+        yield variable;
+    }
+    yield other;
+}
