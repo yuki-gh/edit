@@ -17,6 +17,13 @@ then
 fi
 
 case $1 in
+bas)
+	# .bas
+	find ../basic-computer-games -name '*.bas' | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 sln)
 	# .sln
 	find .. -name '*.sln' | while read -r f; do
