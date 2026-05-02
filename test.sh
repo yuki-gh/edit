@@ -17,6 +17,34 @@ then
 fi
 
 case $1 in
+cs)
+	# .cs
+	find .. -name highlighting-tests -prune -o -name '*.cs' | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
+cpp)
+	# .cpp
+	find .. -name highlighting-tests -prune -o -name '*.cpp' -print -o -name '*.hpp' -print | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
+c)
+	# .c
+	find .. -name highlighting-tests -prune -o -name '*.c' -print -o -name '*.h' -print | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
+rs)
+	# .rs
+	find . -name highlighting-tests -prune -o -name '*.rs' -print | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 Dockerfile|dockerfile)
 	# Dockerfiles
 	find ../dockerfile-examples -name Dockerfile | while read -r f; do
@@ -26,7 +54,7 @@ Dockerfile|dockerfile)
 
 properties)
 	# .properties
-	find ../JMeter-unofficial-ja -name '*.properties' | while read -r f; do
+	find ../JMeter-unofficial-ja -name '*.properties' | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
@@ -47,7 +75,7 @@ config|conf)
 
 xml|html)
 	# .xml/.html
-	find .. -name highlighting-tests -prune -o -name '*.xml' -print -o -name '*.html' -print -o -name '*.htm' -print -o -name '*.csproj' -print | while read -r f; do
+	find .. -name highlighting-tests -prune -o -name '*.xml' -print -o -name '*.html' -print -o -name '*.htm' -print -o -name '*.csproj' -print | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
@@ -82,7 +110,7 @@ yaml|yml)
 
 json)
 	# .json
-	find .. -name highlighting-tests -prune -o -name '*.json' -print | while read -r f; do
+	find .. -name highlighting-tests -prune -o -name '*.json' -print | haed | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
