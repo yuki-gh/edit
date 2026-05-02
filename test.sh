@@ -17,9 +17,16 @@ then
 fi
 
 case $1 in
+bat)
+	# .bat
+	find .. -name highlighting-tests -prune -o -name '*.bat' -print | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 cs)
 	# .cs
-	find .. -name highlighting-tests -prune -o -name '*.cs' | head | while read -r f; do
+	find .. -name highlighting-tests -prune -o -name '*.cs' -print | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;

@@ -1,0 +1,24 @@
+#[display_name = "Batch file"]
+#[path = "**/*.bat"]
+// TODO: strings, variables
+pub fn batch() {
+    until /$/ {
+        yield other;
+
+        if /(?:%[^%]+%|![^!]+!|%[0-9]|%~[A-Za-z_]+\w|%~\$PATH:[A-Za-z_]|%%?[A-Za-z_])/ {
+            yield variable;
+        } else if /(rem|REM|::) .*/ {
+            yield comment;
+        } else if /(?:call|cmdextversion|defined|do|else|equ|errorlevel|exist|exit|for|geq|goto|gtr|if|in|leq|lss|neq|not)\>/ {
+            yield keyword.control;
+        } else if /(?:assoc|cd|chcp|chdir|cls|color|copy|date|del|dir|echo|endlocal|erase|ftype|md|mkdir|move|path|pause|popd|prompt|pushd|rd|ren|rmdir|set|setlocal|shift|start|time|title|type|ver|vol)\>/ {
+            yield keyword.other;
+	} else if /:\s*[A-Za-z]\w*/ {
+	    yield variable;
+        } else if /\w+/ {
+            // Gobble word chars to align the next iteration on a word boundary.
+        }
+
+        yield other;
+    }
+}
