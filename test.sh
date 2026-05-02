@@ -1,7 +1,6 @@
 #! /bin/bash
 # shellcheck shell=bash
 
-set -eu
 set -o pipefail
 
 here=$(dirname "$0")
