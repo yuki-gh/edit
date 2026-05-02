@@ -5,24 +5,29 @@
 #[path = "**/*.n80"]
 #[path = "**/*.n60"]
 #[path = "**/*.sr"]
+// GitHub syntax highlighting rules for BASIC:
+// https://github.com/telnet23/language-basic/blob/master/grammars/basic.cson
 pub fn basic() {
     until /$/ {
         yield other;
 
         if /"/ {
             double_quote_string();
-        } else if /(REM .*|\'.*|REM)/ {
+        } else if /(REM[ "].*|\'.*|REM)/ {
             yield comment;
+        } else if /(DATA)[ "].*/ {
+	    yield $1 as keyword.other;
+            yield other;
         } else if /(?:AND|ELSE|FOR|GOSUB|GOTO|IF|MOD|NEXT|NOT|OR|RETURN|THEN|TO)/ {
 	    // control statements and operators
             yield keyword.control;
-        } else if /(?:ABS|ASC|ATN|BASE|BEEP|BLOAD|BSAVE|CALL|CDBL|CHAIN|CHR\$|CINT|CIRCLE|CLEAR|CLOSE|CLS|COLOR|COMMON|COM|COS|CSNG|CSRLIN|CVD|CVI|CVS|DATA|DATE\$|DEFDBL|DEFINT|DEFSNG|DEFSTR|DEF|DIM|END|EOF|ERASE|ERL|ERROR|ERR|EXP|FIELD|FILES|FIX|FRE|GET|HEX\$|INKEY\$|INPUT|INP|INSTR|INT|KEY|KILL|LEFT\$|LEN|LET|LINE|LOCATE|LOC|LOF|LOG|LPOS|LPRINT|LSET|MID\$|MKD\$|MKI\$|MKS\$|NAME|NEW|OCT\$|ON|OPEN|OPTION|OUT|PAINT|PEEK|PEN|PLAY|POINT|POKE|POS|PRESET|PRINT|PSET|PUT|RANDOMIZE|READ|RESTORE|RESUME|RIGHT\$|RND|RSET|RUN|SCREEN|SGN|SIN|SOUND|SPACE\$|SPC|SQR|STICK|STOP|STR\$|STRIG|STRING\$|SWAP|TAB|TAN|TIME\$|TROFF|TRON|USING|VAL|VARPTR|VIEW|WAIT|WEND|WHILE|WIDTH|WINDOW|WRITE)/ {
+        } else if /(?:ABS|ASC|ATN|BASE|BEEP|BLOAD|BSAVE|CALL|CDBL|CHAIN|CHR\$|CINT|CIRCLE|CLEAR|CLOSE|CLS|COLOR|COMMON|COM|COS|CSNG|CSRLIN|CVD|CVI|CVS|DATE\$|DEFDBL|DEFINT|DEFSNG|DEFSTR|DEF|DIM|END|EOF|ERASE|ERL|ERROR|ERR|EXP|FIELD|FILES|FIX|FRE|GET|HEX\$|INKEY\$|INPUT|INP|INSTR|INT|KEY|KILL|LEFT\$|LEN|LET|LINE|LOCATE|LOC|LOF|LOG|LPOS|LPRINT|LSET|MID\$|MKD\$|MKI\$|MKS\$|NAME|NEW|OCT\$|ON|OPEN|OPTION|OUT|PAINT|PEEK|PEN|PLAY|POINT|POKE|POS|PRESET|PRINT|PSET|PUT|RANDOMIZE|READ|RESTORE|RESUME|RIGHT\$|RND|RSET|RUN|SCREEN|SGN|SIN|SOUND|SPACE\$|SPC|SQR|STICK|STOP|STR\$|STRIG|STRING\$|SWAP|TAB|TAN|TIME\$|TROFF|TRON|USING|VAL|VARPTR|VIEW|WAIT|WEND|WHILE|WIDTH|WINDOW|WRITE)/ {
 	    // statements, command and functions
             yield keyword.other;
 	} else if /(<>|>=|<=|=|>|<|\+|-|\*|\/|\^|\\)/ {
 	    // opeators
 	    yield keyword.control;
-	} else if /(\d+|\d*\.\d+|\d*\.\d+[eEdD](\+-)?\d+\&H[0-9a-fA-F]+|\&O?[0-7]+)/ {
+	} else if /(\d+|\d*\.\d+|\d*\.\d+[eEdD](\+-)?\d+|\&H[0-9a-fA-F]+|\&O?[0-7]+)/ {
 	    yield constant.numeric;
         } else if /\w+/ {
             // Gobble word chars to align the next iteration on a word boundary.
