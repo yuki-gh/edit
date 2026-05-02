@@ -19,14 +19,14 @@ fi
 case $1 in
 bas)
 	# .bas
-	find ../basic-computer-games -name '*.bas' | while read -r f; do
+	find ../basic-computer-games -name '*.bas' | sort | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
 
 sln)
 	# .sln
-	find .. -name '*.sln' | while read -r f; do
+	find .. -name '*.sln' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
@@ -40,7 +40,7 @@ bat)
 
 cs)
 	# .cs
-	find .. -name highlighting-tests -prune -o -name '*.cs' -print | head | while read -r f; do
+	find .. -name highlighting-tests -prune -o -name '*.cs' -print | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
@@ -61,21 +61,21 @@ c)
 
 rs)
 	# .rs
-	find . -name highlighting-tests -prune -o -name '*.rs' -print | head | while read -r f; do
+	find . -name highlighting-tests -prune -o -name '*.rs' -print | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
 
 Dockerfile|dockerfile)
 	# Dockerfiles
-	find ../dockerfile-examples -name Dockerfile | while read -r f; do
+	find ../dockerfile-examples -name Dockerfile | sort | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
 
 properties)
 	# .properties
-	find ../JMeter-unofficial-ja -name '*.properties' | head | while read -r f; do
+	find ../JMeter-unofficial-ja -name '*.properties' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
@@ -103,14 +103,14 @@ xml|html)
 
 rb|ruby)
 	# .rb
-	find .. -name '*.rb' | while read -r f; do
+	find .. -name '*.rb' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
 
 sh)
 	# .sh
-	find .. -name highlighting-tests -prune -o -name '*.sh' -print | while read -r f; do
+	find .. -name highlighting-tests -prune -o -name '*.sh' -print | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
