@@ -2,6 +2,7 @@
 #[path = "**/*.csproj.user"]
 #[path = "**/*.csproj"]
 #[path = "**/*.html"]
+#[path = "**/*.jmx"]
 #[path = "**/*.nuspec"]
 #[path = "**/*.proj"]
 #[path = "**/*.props"]
