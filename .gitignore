@@ -3,3 +3,5 @@
 *.profraw
 lcov.info
 target
+*~
+\#*\#
