@@ -1,0 +1,43 @@
+#[display_name = "Ruby"]
+#[path = "**/*.rb"]
+pub fn ruby() {
+    until /$/ {
+        yield other;
+
+        if /#.*/ {
+            yield comment;
+        } else if /'/ {
+            until /$/ {
+                yield string;
+                if /\\./ {}
+                else if /'/ { yield string; break; }
+                await input;
+            }
+        } else if /"/ {
+            until /$/ {
+                yield string;
+                if /\\./ {}
+                else if /"/ { yield string; break; }
+                await input;
+            }
+        } else if /(?:break|begin|case|def|do|elsif|else|end|ensure|for|if|module|next|raise|redo|rescue|retry|return|then|unless|until|when|while)\>/ {
+            yield keyword.control;
+        } else if /(?:alias|and|class|defined|extend|in|include|lambda|not|or|require|self|super|undef|yield)\>/ {
+            yield keyword.other;
+        } else if /(?:true|false|nil)\>/ {
+            yield constant.language;
+        } else if /(?i:-?(?:0x[\da-fA-F_]+|0b[01_]+|0o[0-7_]+|[\d_]+\.?[\d_]*|\.[\d_]+)(?:e[+-]?[\d_]+)?j?)/ {
+            if /\w+/ {
+                // Invalid numeric literal
+            } else {
+                yield constant.numeric;
+            }
+        } else if /(\w+)\s*\(/ {
+            yield $1 as method;
+        } else if /\w+/ {
+            // Gobble word chars to align the next iteration on a word boundary.
+        }
+
+        yield other;
+    }
+}
