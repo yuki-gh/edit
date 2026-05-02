@@ -1,24 +1,25 @@
 #[display_name = "Dockerfile"]
 #[path = "**/Dockerfile"]
-// TODO: strings, variables
 pub fn dockerfile() {
+    until /$/ {
+        yield other;
 
-        if /#.*/ {
-            yield comment;
-        } else if /'/ {
-            until /$/ {
-                yield string;
-                if /\\./ {}
-                else if /'/ { yield string; break; }
-                await input;
-            }
+        if /'/ {
+            single_quote_string();
         } else if /"/ {
             until /$/ {
                 yield string;
                 if /\\./ {}
+                else if /\$(?:\{[^}]+\}|[A-Za-z_]\w*)/ {
+                    yield variable;
+                }
                 else if /"/ { yield string; break; }
                 await input;
             }
+        } else if /#.*/ {
+            yield comment;
+        } else if /\$(?:\{[^}]+\}|[A-Za-z_]\w*)/ {
+            yield variable;
         } else if /(?:FROM|RUN|CMD|LABEL|MAINTAINER|EXPOSE|ENV|ADD|COPY|ENTRYPOINT|VOLUME|USER|WORKDIR|ARG|ONBUILD|STOPSIGNAL|HEALTHCHECK|SHELL)\>/ {
             yield keyword.other;
         } else if /\w+/ {
@@ -26,4 +27,5 @@ pub fn dockerfile() {
         }
 
         yield other;
+    }
 }
