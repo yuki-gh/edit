@@ -2,12 +2,17 @@
 #[path = "**/*.po"]
 // TODO: strings, variables
 pub fn po() {
-    if /#.*/ {
-        yield comment;
-    } else if /(msgid|msgstr)/ {
-        yield keyword.other;
-    } else if /\{[0-9]\}/ {
-        yield variable;
+    until /$/ {
+        yield other;
+
+        if /#.*/ {
+            yield comment;
+        } else if /(msgid|msgstr)/ {
+            yield keyword.other;
+        } else if /(\{[0-9]\})/ {
+            yield variable;
+        }
+
+        yield other;
     }
-    yield other;
 }
