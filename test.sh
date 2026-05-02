@@ -40,7 +40,7 @@ c)
 
 rs)
 	# .rs
-	find . -name highlighting-tests -prune -o -name '*.rs' -print | while read -r f; do
+	find . -name highlighting-tests -prune -o -name '*.rs' -print | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
