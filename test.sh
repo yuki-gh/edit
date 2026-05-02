@@ -17,6 +17,13 @@ then
 fi
 
 case $1 in
+sln)
+	# .sln
+	find .. -name '*.sln' | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 bat)
 	# .bat
 	find .. -name highlighting-tests -prune -o -name '*.bat' -print | head | while read -r f; do
