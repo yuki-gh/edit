@@ -110,7 +110,7 @@ yaml|yml)
 
 json)
 	# .json
-	find .. -name highlighting-tests -prune -o -name '*.json' -print | haed | while read -r f; do
+	find .. -name highlighting-tests -prune -o -name '*.json' -print | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
