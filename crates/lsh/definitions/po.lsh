@@ -1,6 +1,5 @@
 #[display_name = "PO"]
 #[path = "**/*.po"]
-// TODO: strings, variables
 pub fn po() {
     until /$/ {
         yield other;
