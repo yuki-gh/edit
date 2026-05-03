@@ -82,7 +82,7 @@ properties)
 
 po)
 	# .po
-	find ../MonoDevelop-unofficial-ja -name '*.po' | while read -r f; do
+	find .. -name '*.po' | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
