@@ -19,7 +19,7 @@ fi
 case $1 in
 bas)
 	# .bas
-	find ../basic-computer-games -name '*.bas' | sort | while read -r f; do
+	find ../basic-computer-games -name '*.bas' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
