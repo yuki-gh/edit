@@ -8,7 +8,11 @@ pub fn po() {
             yield comment;
         } else if /(msgid|msgstr)/ {
             yield keyword.other;
-        } else if /(\{[0-9]\})/ {
+        } else if /\{\d+:?[A-Za-z]?\d?\}/ {
+            // C#
+            yield variable;
+        } else if /%(\d\$)?['\+\- #]*[\d\.\*]*[A-Za-z]+/ {
+            // C/C++, Java
             yield variable;
         }
 
