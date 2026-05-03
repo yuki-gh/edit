@@ -7,6 +7,7 @@
 #[path = "**/*.sr"]
 // GitHub syntax highlighting rules for BASIC:
 // https://github.com/telnet23/language-basic/blob/master/grammars/basic.cson
+// TODO: rem, data, label, line number
 pub fn basic() {
     until /$/ {
         yield other;
@@ -18,19 +19,29 @@ pub fn basic() {
         } else if /(DATA)[ "].*/ {
 	    yield $1 as keyword.other;
             yield other;
-        } else if /(?:AND|ELSE|FOR|GOSUB|GOTO|IF|MOD|NEXT|NOT|OR|RETURN|THEN|TO)/ {
-	    // control statements and operators
+        } else if /(?i:cload|cmd|connect|console|csave|cursor|defusr|delete|dskf|dski\$|dsko\$|eqv|exec|format|help|interval|kanji|lfiles|llist|loadm|motor|mount|remove|renum|savem|segptr|step|symbol|talk|xor)/ {
+	    // extra keywords (longer)
+            yield keyword.other;
+        } else if /(?i:abs|asc|as|atn|base|beep|bload|bsave|call|cdbl|chain|chr\$|cint|circle|clear|close|cls|color|common|com|cos|csng|csrlin|cvd|cvi|cvs|date\$|defdbl|defint|defsng|defstr|def|dim|end|eof|erase|erl|error|err|exp|field|files|fix|fre|get|hex\$|inkey\$|input|inp|instr|int|key|kill|left\$|len|let|line|locate|loc|lof|log|lpos|lprint|lset|mid\$|mkd\$|mki\$|mks\$|name|new|oct\$|on|open|option|out|paint|peek|pen|play|point|poke|pos|preset|print|pset|put|randomize|read|restore|resume|right\$|rnd|rset|run|screen|sgn|sin|sound|space\$|spc|sqr|stick|stop|str\$|strig|string\$|swap|system|tab|tan|time\$|troff|tron|using|val|varptr|view|wait|wend|while|width|window|write)/ {
+	    // GitHub-recognized keywords
+            yield keyword.other;
+        } else if /(?i:auto|cont|edit|imp|list|load|map|mon|off|save|term|usr)/ {
+	    // extra keywords (shorter)
+            yield keyword.other;
+        } else if /(?i:else|for|gosub|goto|if|next|return|then|to)/ {
+	    // control statements
             yield keyword.control;
-        } else if /(?:AS|CMD|CONNECT|CONSOLE|CURSOR|DSKF|DSKI\$|DSKO\$|EQV|EXEC|HELP|IMP|INTERVAL|KANJI|LOADM|MAP|OFF|SEGPTR|STEP|SYMBOL|TALK|USR|XOR)/ {
-	    // extra statements and functions
-            yield keyword.other;
-        } else if /(?:ABS|ASC|AS|ATN|BASE|BEEP|BLOAD|BSAVE|CALL|CDBL|CHAIN|CHR\$|CINT|CIRCLE|CLEAR|CLOSE|CLS|COLOR|COMMON|COM|COS|CSNG|CSRLIN|CVD|CVI|CVS|DATE\$|DEFDBL|DEFINT|DEFSNG|DEFSTR|DEF|DIM|END|EOF|ERASE|ERL|ERROR|ERR|EXP|FIELD|FILES|FIX|FRE|GET|HEX\$|INKEY\$|INPUT|INP|INSTR|INT|KEY|KILL|LEFT\$|LEN|LET|LINE|LOCATE|LOC|LOF|LOG|LPOS|LPRINT|LSET|MID\$|MKD\$|MKI\$|MKS\$|NAME|NEW|OCT\$|ON|OPEN|OPTION|OUT|PAINT|PEEK|PEN|PLAY|POINT|POKE|POS|PRESET|PRINT|PSET|PUT|RANDOMIZE|READ|RESTORE|RESUME|RIGHT\$|RND|RSET|RUN|SCREEN|SGN|SIN|SOUND|SPACE\$|SPC|SQR|STICK|STOP|STR\$|STRIG|STRING\$|SWAP|SYSTEM|TAB|TAN|TIME\$|TROFF|TRON|USING|VAL|VARPTR|VIEW|WAIT|WEND|WHILE|WIDTH|WINDOW|WRITE)/ {
-	    // statements, command and functions
-            yield keyword.other;
-	} else if /(<>|>=|<=|=|>|<|\+|-|\*|\/|\^|\\)/ {
+	} else if /(?i:and|mod|not|or|<>|>=|<=|=|>|<|\+|-|\*|\/|\^|\\)/ {
 	    // opeators
 	    yield keyword.control;
-	} else if /(\d+|\d*\.\d+|\d*\.\d+[eEdD](\+-)?\d+|\&H[0-9a-fA-F]+|\&O?[0-7]+)/ {
+	} else if /(\d*\.\d+[eEdD][\+-]?\d+|\d*\.\d+)/ {
+	    // real
+	    yield constant.numeric;
+	} else if /(\&[Hh][\dA-Fa-f]+)/ {
+	    // hex
+	    yield constant.numeric;
+	} else if /(\&o?[0-7]+|\d+)/ {
+	    // octal, decimal
 	    yield constant.numeric;
         } else if /\w+/ {
             // Gobble word chars to align the next iteration on a word boundary.
