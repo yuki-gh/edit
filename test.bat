@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 
 cd "%~dp0"
 chcp 65001
