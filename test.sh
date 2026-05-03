@@ -94,6 +94,13 @@ config|conf)
 	done
 	;;
 
+toml)
+	# *config
+	find . -name '*.toml' | sort | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 xml|html)
 	# .xml/.html
 	find .. -name highlighting-tests -prune -o -name '*.xml' -print -o -name '*.html' -print -o -name '*.htm' -print -o -name '*.csproj' -print | head | while read -r f; do
