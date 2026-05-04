@@ -14,42 +14,42 @@ pub fn basic() {
 
         if /"/ {
             until /$/ {
-	        yield string;
-		if /"/ {
-		    yield string;
-		    break;
-		}
-		await input;
-	    }
+                yield string;
+                if /"/ {
+                    yield string;
+                    break;
+                }
+                await input;
+            }
         } else if /(REM[ "].*|\'.*|REM)/ {
             yield comment;
         } else if /(DATA)[ "].*/ {
-	    yield $1 as keyword.other;
+            yield $1 as keyword.other;
             yield other;
         } else if /(?i:cload|cmd|connect|console|csave|cursor|defusr|delete|dskf|dski\$|dsko\$|eqv|exec|format|help|interval|kanji|lfiles|llist|loadm|motor|mount|remove|renum|savem|segptr|step|symbol|talk|xor)/ {
-	    // extra keywords (longer)
+            // extra keywords (longer)
             yield keyword.other;
         } else if /(?i:abs|asc|as|atn|base|beep|bload|bsave|call|cdbl|chain|chr\$|cint|circle|clear|close|cls|color|common|com|cos|csng|csrlin|cvd|cvi|cvs|date\$|defdbl|defint|defsng|defstr|def|dim|end|eof|erase|erl|error|err|exp|field|files|fix|fre|get|hex\$|inkey\$|input|inp|instr|int|key|kill|left\$|len|let|line|locate|loc|lof|log|lpos|lprint|lset|mid\$|mkd\$|mki\$|mks\$|name|new|oct\$|on|open|option|out|paint|peek|pen|play|point|poke|pos|preset|print|pset|put|randomize|read|restore|resume|right\$|rnd|rset|run|screen|sgn|sin|sound|space\$|spc|sqr|stick|stop|str\$|strig|string\$|swap|system|tab|tan|time\$|troff|tron|using|val|varptr|view|wait|wend|while|width|window|write)/ {
-	    // GitHub-recognized keywords
+            // GitHub-recognized keywords
             yield keyword.other;
         } else if /(?i:auto|cont|edit|imp|list|load|map|mon|off|save|term|usr)/ {
-	    // extra keywords (shorter)
+            // extra keywords (shorter)
             yield keyword.other;
         } else if /(?i:else|for|gosub|goto|if|next|return|then|to)/ {
-	    // control statements
+            // control statements
             yield keyword.control;
-	} else if /(?i:and|mod|not|or|<>|>=|<=|=|>|<|\+|-|\*|\/|\^|\\)/ {
-	    // operators
-	    yield keyword.control;
-	} else if /(\d*\.\d+[eEdD][\+-]?\d+|\d*\.\d+)/ {
-	    // real
-	    yield constant.numeric;
-	} else if /(\&[Hh][\dA-Fa-f]+)/ {
-	    // hex
-	    yield constant.numeric;
-	} else if /(\&o?[0-7]+|\d+)/ {
-	    // octal, decimal
-	    yield constant.numeric;
+        } else if /(?i:and|mod|not|or|<>|>=|<=|=|>|<|\+|-|\*|\/|\^|\\)/ {
+            // operators
+            yield keyword.control;
+        } else if /(\d*\.\d+[eEdD][\+-]?\d+|\d*\.\d+)/ {
+            // real
+            yield constant.numeric;
+        } else if /(\&[Hh][\dA-Fa-f]+)/ {
+            // hex
+            yield constant.numeric;
+        } else if /(\&o?[0-7]+|\d+)/ {
+            // octal, decimal
+            yield constant.numeric;
         } else if /\w+/ {
             // Gobble word chars to align the next iteration on a word boundary.
         }

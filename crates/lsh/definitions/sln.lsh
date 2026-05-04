@@ -8,18 +8,18 @@ pub fn sln() {
             double_quote_string();
         } else if /#.*/ {
             yield comment;
-	} else if /Microsoft Visual Studio Solution File, Format Version .*/ {
-	    yield comment;
-	} else if /(Version = )[0-9.]+/ {
-	    yield $1 as other;
-	    yield string;
+        } else if /Microsoft Visual Studio Solution File, Format Version .*/ {
+            yield comment;
+        } else if /(Version = )[0-9.]+/ {
+            yield $1 as other;
+            yield string;
         } else if /\{[0-9A-F-]+\}/ {
             yield string;
-	} else if /\(\w+\)/ {
-	    yield other;
+        } else if /\(\w+\)/ {
+            yield other;
         } else if /(preSolution|postSolution|Debug\||Release\||true|false|TRUE|FALSE)/ {
             yield string;
-	} else if /(?:(End)?Project|(End)?Global(Section)?)/ {
+        } else if /(?:(End)?Project|(End)?Global(Section)?)/ {
             yield keyword.other;
         }
 
