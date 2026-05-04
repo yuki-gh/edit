@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 
 cd "%~dp0"
 chcp 65001
@@ -182,6 +182,13 @@ exit /b
 :js
 :javascript
 for /r .. %%f in (*.js) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
+:java
+for /r .. %%f in (*.java) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
 	pause
 )

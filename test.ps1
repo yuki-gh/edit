@@ -206,7 +206,8 @@ switch ($args[0]) {
 
 	{ $_ -in @("py","python") } {
 		Get-ChildItem ".." -Recurse -Filter *.py |
-			Where-Object { $_.FullName -notmatch "highlighting-tests" } | ForEach-Object {
+			Where-Object { $_.FullName -notmatch "highlighting-tests" } |
+			Select-Object -First 10 | ForEach-Object {
 				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
 				pause
 			}
@@ -214,7 +215,17 @@ switch ($args[0]) {
 
 	{ $_ -in @("js","javascript") } {
 		Get-ChildItem ".." -Recurse -Include *.js, *.jsx |
-			Where-Object { $_.FullName -notmatch "highlighting-tests" } | ForEach-Object {
+			Where-Object { $_.FullName -notmatch "highlighting-tests" } |
+			Select-Object -First 10 | ForEach-Object {
+				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
+	"java" {
+		Get-ChildItem ".." -Recurse -Include *.java |
+			Where-Object { $_.FullName -notmatch "highlighting-tests" } |
+			Select-Object -First 10 | ForEach-Object {
 				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
 				pause
 			}

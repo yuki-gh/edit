@@ -173,14 +173,21 @@ json)
 
 py|python)
 	# .py
-	find .. -name highlighting-tests -prune -o -name '*.py' -print | while read -r f; do
+	find .. -name highlighting-tests -prune -o -name '*.py' -print | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
 
 js|javascript)
 	# .js/.jsx
-	find .. -name highlighting-tests -prune -o -name '*.js' -print -o -name '*.jsx' -print | while read -r f; do
+	find .. -name highlighting-tests -prune -o -name '*.js' -print -o -name '*.jsx' -print | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
+java)
+	# .java
+	find .. -name '*.java'  | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
