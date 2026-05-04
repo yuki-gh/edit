@@ -11,6 +11,7 @@
 #[path = "**/*.slnx"]
 #[path = "**/*.svg"]
 #[path = "**/*.targets"]
+#[path = "**/*.vbproj"]
 #[path = "**/*.vcxproj.filters"]
 #[path = "**/*.vcxproj"]
 #[path = "**/*.xaml"]

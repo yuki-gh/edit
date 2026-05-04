@@ -107,8 +107,22 @@ for /r %%f in (*.toml) do (
 exit /b
 
 :xml
+for /r .. %%f in (*.xml) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :html
-for /r .. %%f in (*.xml *.html *.htm *.csproj) do (
+for /r .. %%f in (*.html *.htm) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
+:csproj
+:vbproj
+for /r .. %%f in (*.vbproj *.csproj) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
 	pause
 )

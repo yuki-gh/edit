@@ -125,8 +125,26 @@ switch ($args[0]) {
 			}
 	}
 
-	{ $_ -in @("xml","html") } {
-		Get-ChildItem ".." -Recurse -Include *.xml, *.html, *.htm, *.csproj |
+	"xml" {
+		Get-ChildItem ".." -Recurse -Include *.xml |
+			Where-Object { $_.FullName -notmatch "highlighting-tests" } |
+			Select-Object -First 10 |  ForEach-Object {
+				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
+	"html" {
+		Get-ChildItem ".." -Recurse -Include *.html, *.htm |
+			Where-Object { $_.FullName -notmatch "highlighting-tests" } |
+			Select-Object -First 10 |  ForEach-Object {
+				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
+	{ $_ -in @("csproj","vbproj") } {
+		Get-ChildItem ".." -Recurse -Include *.vbproj, *.csproj |
 			Where-Object { $_.FullName -notmatch "highlighting-tests" } |
 			Select-Object -First 10 |  ForEach-Object {
 				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more

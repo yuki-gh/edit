@@ -108,9 +108,23 @@ toml)
 	done
 	;;
 
-xml|html)
-	# .xml/.html
-	find .. -name highlighting-tests -prune -o -name '*.xml' -print -o -name '*.html' -print -o -name '*.htm' -print -o -name '*.csproj' -print | head | while read -r f; do
+xml)
+	# .xml
+	find .. -name highlighting-tests -prune -o -name '*.xml' -print | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
+html)
+	# .html
+	find .. -name highlighting-tests -prune -o -name '*.html' -print -o -name '*.htm' -print | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
+csproj|vbproj)
+	# .csproj/.vbproj
+	find .. -name highlighting-tests -prune -o -name '*.csproj' -print -o -name '*.vbproj' -print | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
