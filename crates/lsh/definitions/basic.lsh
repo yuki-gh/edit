@@ -13,7 +13,14 @@ pub fn basic() {
         yield other;
 
         if /"/ {
-            double_quote_string();
+            until /$/ {
+	        yield string;
+		if /"/ {
+		    yield string;
+		    break;
+		}
+		await input;
+	    }
         } else if /(REM[ "].*|\'.*|REM)/ {
             yield comment;
         } else if /(DATA)[ "].*/ {
