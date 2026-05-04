@@ -126,7 +126,7 @@ switch ($args[0]) {
 	}
 
 	"xml" {
-		Get-ChildItem ".." -Recurse -Include *.xml |
+		Get-ChildItem ".." -Recurse -Include *.jmx, *.xml |
 			Where-Object { $_.FullName -notmatch "highlighting-tests" } |
 			Select-Object -First 10 |  ForEach-Object {
 				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more

@@ -107,7 +107,7 @@ for /r %%f in (*.toml) do (
 exit /b
 
 :xml
-for /r .. %%f in (*.xml) do (
+for /r .. %%f in (*.jmx *.xml) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
 	pause
 )
