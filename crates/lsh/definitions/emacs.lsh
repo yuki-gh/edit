@@ -17,18 +17,18 @@ pub fn emacs() {
             }
         } else if /;.*/ {
             yield comment;
-        } else if /'[\w_\-]+/ {
+        } else if /[':][\w_\-]+/ {
             yield variable;
         } else if /'\[[^]]+\]+/ {
             yield string;
         } else if /(\?\\.|\?.)/ {
             yield string;
-        } else if /(?i:abs|append|apply|assoc|butlast|cdr|car|caar|cadr|cdar|cddr|car-safe|cdr-safe|copy-alist|copy-tree|dolist|funcall|last|length|load|make-list|mapc|mapcar|max|min|member|nbutlast|nconc|nreverse|nth|nthcdr|null|pop|prin1|princ|print|push|quote|rassoc|reverse|rplaca|rplacd|safe-length|setcar|setcdr|append|nconc|defun|lambda|function|and|if|unless|when|while|defmacro|defsubst|define-condition|define-widget|setq|setf|and|catch|cond|condition-case|condition-case-unless-debug|dotimes|equal|if|not|or|pcase|prog1|prog2|progn|throw|unless|unwind-protect|when|while|let|let\*|interactive|defvar)/ {
-            yield keyword.control;
-        } else if /(?:format|error|cl-loop|format-message|message|concat|count|do|for|repeat|vconcat|provide|require)/ {
-            yield keyword.control;
-        } else if /(?i:listp\?|consp\?|above|across|across-ref|always|as|below|by|collect|each|finally|from|in|in-ref|initially|into|maximize|minimize|named|never|of|of-ref|on|return|sum|then|thereis|sum|to|until|using|with|optional|rest|eql\?)/ {
-            yield keyword.other;
+        } else if /[^\w\+\-]((?i:abs|append|apply|assoc|butlast|cdr|car|caar|cadr|cdar|cddr|car-safe|cdr-safe|copy-alist|copy-tree|dolist|funcall|last|length|load|make-list|mapc|mapcar|max|min|member|nbutlast|nconc|nreverse|nth|nthcdr|null|pop|prin1|princ|print|push|quote|rassoc|reverse|rplaca|rplacd|safe-length|setcar|setcdr|append|nconc|defun|lambda|function|and|if|unless|when|while|defmacro|defsubst|define-condition|define-widget|setq|setf|and|catch|cond|condition-case|condition-case-unless-debug|dotimes|equal|if|not|or|pcase|prog1|prog2|progn|throw|unless|unwind-protect|when|while|let|let\*|interactive|defvar))[^\w\+\-]/ {
+            yield $1 as keyword.control;
+        } else if /[^\w\+\-]((?:format|error|cl-loop|format-message|message|concat|count|do|for|repeat|vconcat|provide|require))[^\w\+\-]/ {
+            yield $1 as keyword.control;
+        } else if /[^\w\+\-]((?i:listp\?|consp\?|above|across|across-ref|always|as|below|by|collect|each|finally|from|in|in-ref|initially|into|maximize|minimize|named|never|of|of-ref|on|return|sum|then|thereis|sum|to|until|using|with|optional|rest|eql\?))[^\w\+\-]/ {
+            yield $1 as keyword.other;
         } else if /(?:\d+\.\d+|\d+)/ {
             yield constant.numeric;
         } else if /nil/ {
@@ -37,6 +37,8 @@ pub fn emacs() {
             yield $1 as constant.language;
 //        } else if /[\w_\+\-]+/ {
 //            yield variable;
+        } else if /[,`]/ {
+            yield operator;
         } else if /\w+/ {
             // Gobble word chars to align the next iteration on a word boundary.
         }
