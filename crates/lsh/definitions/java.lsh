@@ -15,6 +15,12 @@ pub fn java() {
                     break;
                 }
             }
+        } else if /"""/ {
+            loop {
+                yield string;
+                if /"""/ { yield string; break; }
+                await input;
+            }
         } else if /'/ {
             until /$/ {
                 yield string;
@@ -32,6 +38,8 @@ pub fn java() {
         } else if /(?:break|case|catch|continue|default|do|else|finally|for|goto|if|return|switch|throw|try|while|yield)\>/ {
             yield keyword.control;
         } else if /(?:abstract|assert|boolean|byte|char|class|const|double|enum|extends|final|float|implements|import|instanceof|int|interface|long|native|new|package|private|protected|public|short|static|strictfp|super|synchronized|this|throws|transient|void|volatile|exports|module|non-sealed|open|opens|permits|provides|record|requires|sealed|to|transitive|uses|var|when|with)\>/ {
+            yield keyword.other;
+        } else if /(?:Integer|Long|Float|Double|Boolean|Character|String|Object|ArrayList|LinkedList|List|TreeSet|HashSet|Set|LinkedHashMap|HashMap|TreeMap|Map|Deque)/ {
             yield keyword.other;
         } else if /(?:true|false|null)\>/ {
             yield constant.language;
