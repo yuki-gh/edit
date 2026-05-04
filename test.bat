@@ -13,6 +13,15 @@ if "%1"=="" (
 
 goto %1
 
+:el
+set emacs_dir=C:\cygwin64\usr\share\emacs
+set emacs_dir=C:\msys64\usr\share\emacs
+for /r %emacs_dir% %%f in (*.el) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :bas
 for /r ..\basic-computer-games\00_Alternate_Languages %%f in (*.bas) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
