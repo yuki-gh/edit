@@ -1,0 +1,44 @@
+#[display_name = "Emacs Lisp"]
+#[path = "**/*.el"]
+// TODO: keyword in word
+pub fn emacs() {
+    until /$/ {
+        yield other;
+
+        if /"/ {
+            loop {
+                yield string;
+		await input;
+		if /\\./ {}
+                else if /"/ {
+		    yield string;
+		    break;
+		}
+            }
+        } else if /;.*/ {
+            yield comment;
+        } else if /'[\w_\-]+/ {
+            yield variable;
+        } else if /'\[[^]]+\]+/ {
+            yield string;
+        } else if /(\?\\.|\?.)/ {
+            yield string;
+        } else if /(?i:quote|function|if|cond|progn|prog1|prog2|setq|let|let\*|while|catch|throw|unwind-protect|condition-case|lambda|interactive|save-excursion|save-current-buffer|save-restriction)/ {
+            yield keyword.control;
+        } else if /(?i:when|unless|and|or|pcase|pcase-let|pcase-dolist|defun|defmacro|defvar|defconst|defcustom|define-minor-mode|define-derived-mode|dolist|dotimes|cl-loop|cl-dolist|cl-dotimes|ignore-errors|with-demoted-errors|with-current-buffer|with-temp-buffer|save-window-excursion|with-output-to-string|time|eval-and-compile|with-eval-after-load|provide|require)/ {
+            yield keyword.other;
+	} else if /(?:\d+\.\d+|\d+)/ {
+	    yield constant.numeric;
+	} else if /nil/ {
+	    yield constant.language;
+	} else if /[^\w](t)[^\w]/ {
+	    yield $1 as constant.language;
+//	} else if /[\w_\+\-]+/ {
+//	    yield variable;
+        } else if /\w+/ {
+            // Gobble word chars to align the next iteration on a word boundary.
+        }
+
+        yield other;
+    }
+}
