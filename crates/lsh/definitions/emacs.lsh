@@ -38,7 +38,7 @@ pub fn emacs() {
 //        } else if /[\w_\+\-]+/ {
 //            yield variable;
         } else if /[,`]/ {
-            yield operator;
+            yield keyword.other;
         } else if /\w+/ {
             // Gobble word chars to align the next iteration on a word boundary.
         }

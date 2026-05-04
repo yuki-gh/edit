@@ -39,7 +39,7 @@ pub fn basic() {
 	    // control statements
             yield keyword.control;
 	} else if /(?i:and|mod|not|or|<>|>=|<=|=|>|<|\+|-|\*|\/|\^|\\)/ {
-	    // opeators
+	    // operators
 	    yield keyword.control;
 	} else if /(\d*\.\d+[eEdD][\+-]?\d+|\d*\.\d+)/ {
 	    // real
