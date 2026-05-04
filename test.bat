@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 
 cd "%~dp0"
 chcp 65001
@@ -66,6 +66,13 @@ exit /b
 
 :rs
 for /r .. %%f in (*.rs) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
+:makefile
+for /r .. %%f in (Makefile*) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
 	pause
 )

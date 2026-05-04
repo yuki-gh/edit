@@ -85,6 +85,14 @@ switch ($args[0]) {
 			}
 	}
 
+	{ $_ -in @("Makefile","makefile") } {
+		Get-ChildItem ".." -Recurse -Filter Makefile |
+			Sort-Object FullName | ForEach-Object {
+				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
 	{ $_ -in @("Dockerfile","dockerfile") } {
 		Get-ChildItem "../dockerfile-examples" -Recurse -Filter Dockerfile |
 			Sort-Object FullName | ForEach-Object {

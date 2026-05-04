@@ -73,6 +73,13 @@ rs)
 	done
 	;;
 
+Makefile|makefile)
+	# Makefiles
+	find .. -name Makefile | sort | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 Dockerfile|dockerfile)
 	# Dockerfiles
 	find ../dockerfile-examples -name Dockerfile | sort | while read -r f; do

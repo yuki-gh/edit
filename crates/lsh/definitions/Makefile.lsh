@@ -1,0 +1,46 @@
+#[display_name = "Makefile"]
+#[path = "**/Makefile"]
+pub fn makefile() {
+    until /$/ {
+        yield other;
+
+        if /'/ {
+            until /$/ {
+                yield string;
+                if /\\./ {}
+                else if /\$\$?(?:\([^)]+\)|[A-Za-z_]\w*)/ {
+                    yield variable;
+                }
+                else if /'/ { yield string; break; }
+                await input;
+            }
+        } else if /"/ {
+            until /$/ {
+                yield string;
+                if /\\./ {}
+                else if /\$\$?(?:\([^)]+\)|[A-Za-z_]\w*)/ {
+                    yield variable;
+                }
+                else if /"/ { yield string; break; }
+                await input;
+            }
+        } else if /#.*/ {
+            yield comment;
+        } else if /\.(PHONY|PRECIOUS|INTERMEDIATE|SECONDARY|DELETE_ON_ERROR|SUFFIXES)/ {
+            yield keyword.other;
+        } else if /(\w+)\s*=/ {
+            yield $1 as variable;
+            yield other;
+        } else if /\$\$?\([^)]+\)/ {
+            yield variable;
+        } else if /\$\$?(?:\{[^}]+\}|[A-Za-z_]\w*)/ {
+            yield variable;
+        } else if /\$[@%<\?\^\+\*]/ {
+            yield variable;
+        } else if /\w+/ {
+            // Gobble word chars to align the next iteration on a word boundary.
+        }
+
+        yield other;
+    }
+}
