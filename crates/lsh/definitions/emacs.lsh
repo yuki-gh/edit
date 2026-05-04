@@ -8,12 +8,12 @@ pub fn emacs() {
         if /"/ {
             loop {
                 yield string;
-		await input;
-		if /\\./ {}
+                await input;
+                if /\\./ {}
                 else if /"/ {
-		    yield string;
-		    break;
-		}
+                    yield string;
+                    break;
+                }
             }
         } else if /;.*/ {
             yield comment;
@@ -23,18 +23,20 @@ pub fn emacs() {
             yield string;
         } else if /(\?\\.|\?.)/ {
             yield string;
-        } else if /(?i:quote|function|if|cond|progn|prog1|prog2|setq|let|let\*|while|catch|throw|unwind-protect|condition-case|lambda|interactive|save-excursion|save-current-buffer|save-restriction)/ {
+        } else if /(?i:abs|append|apply|assoc|butlast|cdr|car|caar|cadr|cdar|cddr|car-safe|cdr-safe|copy-alist|copy-tree|dolist|funcall|last|length|load|make-list|mapc|mapcar|max|min|member|nbutlast|nconc|nreverse|nth|nthcdr|null|pop|prin1|princ|print|push|quote|rassoc|reverse|rplaca|rplacd|safe-length|setcar|setcdr|append|nconc|defun|lambda|function|and|if|unless|when|while|defmacro|defsubst|define-condition|define-widget|setq|setf|and|catch|cond|condition-case|condition-case-unless-debug|dotimes|equal|if|not|or|pcase|prog1|prog2|progn|throw|unless|unwind-protect|when|while|let|let\*|interactive|defvar)/ {
             yield keyword.control;
-        } else if /(?i:when|unless|and|or|pcase|pcase-let|pcase-dolist|defun|defmacro|defvar|defconst|defcustom|define-minor-mode|define-derived-mode|dolist|dotimes|cl-loop|cl-dolist|cl-dotimes|ignore-errors|with-demoted-errors|with-current-buffer|with-temp-buffer|save-window-excursion|with-output-to-string|time|eval-and-compile|with-eval-after-load|provide|require)/ {
+        } else if /(?:format|error|cl-loop|format-message|message|concat|count|do|for|repeat|vconcat|provide|require)/ {
+            yield keyword.control;
+        } else if /(?i:listp\?|consp\?|above|across|across-ref|always|as|below|by|collect|each|finally|from|in|in-ref|initially|into|maximize|minimize|named|never|of|of-ref|on|return|sum|then|thereis|sum|to|until|using|with|optional|rest|eql\?)/ {
             yield keyword.other;
-	} else if /(?:\d+\.\d+|\d+)/ {
-	    yield constant.numeric;
-	} else if /nil/ {
-	    yield constant.language;
-	} else if /[^\w](t)[^\w]/ {
-	    yield $1 as constant.language;
-//	} else if /[\w_\+\-]+/ {
-//	    yield variable;
+        } else if /(?:\d+\.\d+|\d+)/ {
+            yield constant.numeric;
+        } else if /nil/ {
+            yield constant.language;
+        } else if /[^\w](t)[^\w]/ {
+            yield $1 as constant.language;
+//        } else if /[\w_\+\-]+/ {
+//            yield variable;
         } else if /\w+/ {
             // Gobble word chars to align the next iteration on a word boundary.
         }
