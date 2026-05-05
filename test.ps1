@@ -13,6 +13,15 @@ if ($args.Count -eq 0) {
 }
 
 switch ($args[0]) {
+	"sql" {
+		Get-ChildItem "../forstie" -Recurse -Filter *.sql |
+			Sort-Object FullName |
+			Select-Object -First 10 | ForEach-Object {
+				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
 	"el" {
 		$emacs_dir = "C:\cygwin64\usr\share\emacs"
 		$emacs_dir = "C:\msys64\usr\share\emacs"
