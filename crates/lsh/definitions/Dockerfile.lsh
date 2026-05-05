@@ -20,7 +20,7 @@ pub fn dockerfile() {
             yield comment;
         } else if /\$(?:\{[^}]+\}|[A-Za-z_]\w*)/ {
             yield variable;
-        } else if /(?:FROM|RUN|CMD|LABEL|MAINTAINER|EXPOSE|ENV|ADD|COPY|ENTRYPOINT|VOLUME|USER|WORKDIR|ARG|ONBUILD|STOPSIGNAL|HEALTHCHECK|SHELL)\>/ {
+        } else if /(?:ADD|ARG|CMD|COPY|ENTRYPOINT|ENV|EXPOSE|FROM|HEALTHCHECK|LABEL|MAINTAINER|ONBUILD|RUN|SHELL|STOPSIGNAL|USER|VOLUME|WORKDIR)\>/ {
             yield keyword.other;
         } else if /\w+/ {
             // Gobble word chars to align the next iteration on a word boundary.
