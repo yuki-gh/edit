@@ -17,6 +17,29 @@ then
 fi
 
 case $1 in
+setup)
+	cd ..
+	git clone https://github.com/coding-horror/basic-computer-games.git
+	git clone https://github.com/Alhadis/language-emacs-lisp.git
+	git clone https://github.com/yuki-gh/MySQL-unofficial-ja.git
+	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
+	git clone git@github.com:yuki-gh/MonoDevelop-unofficial-ja.git
+	git clone git@github.com:yuki-gh/UnityEditor-unofficial-ja.git
+	git clone git@github.com:yuki-gh/arm64.git
+	git clone git@github.com:yuki-gh/riscv.git
+	git clone git@github.com:yuki-gh/retropc-tools.git
+	mkdir forstie
+	cd forstie
+	curl https://api.github.com/users/forstie/gists | jq -r '.[].files[].raw_url' | wget -i -
+	;;
+
+sql)
+	# .sql
+	find ../forstie -name '*.sql' | sort | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 el)
 	# .el
 	find /usr/share/emacs -name '*.el' | sort | head | while read -r f; do
