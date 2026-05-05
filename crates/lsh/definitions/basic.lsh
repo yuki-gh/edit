@@ -7,8 +7,12 @@
 #[path = "**/*.sr"]
 // GitHub syntax highlighting rules for BASIC:
 // https://github.com/telnet23/language-basic/blob/master/grammars/basic.cson
-// TODO: rem, data, label, line number
+// TODO: rem, data, label
 pub fn basic() {
+    if /\d+/ {
+        yield constant.numeric;
+    }
+
     until /$/ {
         yield other;
 
@@ -26,6 +30,9 @@ pub fn basic() {
         } else if /(DATA)[ "].*/ {
             yield $1 as keyword.other;
             yield other;
+        } else if /((?i:auto|else|gosub|goto|list|renum|restore|resume|run|then))\s*\d+/ {
+            yield $1 as keyword.control;
+            yield constant.numeric;
         } else if /(?i:cload|cmd|connect|console|csave|cursor|defusr|delete|dskf|dski\$|dsko\$|eqv|exec|format|help|interval|kanji|lfiles|llist|loadm|motor|mount|remove|renum|savem|segptr|step|symbol|talk|xor)/ {
             // extra keywords (longer)
             yield keyword.other;
