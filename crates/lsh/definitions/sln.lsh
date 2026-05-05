@@ -17,7 +17,9 @@ pub fn sln() {
             yield string;
         } else if /\(\w+\)/ {
             yield other;
-        } else if /(preSolution|postSolution|Debug\||Release\||true|false|TRUE|FALSE)/ {
+        } else if /(preSolution|postSolution|Debug\||Release\|)/ {
+            yield string;
+        } else if /(?i:true|false)\>/ {
             yield string;
         } else if /(?:(End)?Project|(End)?Global(Section)?)/ {
             yield keyword.other;
