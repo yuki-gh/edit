@@ -4,7 +4,7 @@ pub fn sql() {
     until /$/ {
         yield other;
 
-        if /'/ {
+        if /[BENX]?'/ {
             loop {
                 yield string;
                 await input;
