@@ -37,7 +37,9 @@ pub fn sql() {
         } else if /(?i:<>|>=|=>|<=|=|>|<|\+|-|\*|\/)/ {
             // operators
             yield keyword.control;
-        } else if /(?:\d*\.\d+|\d+)\>/ {
+        } else if /(?:\d*\.\d+)\>/ {
+            yield constant.numeric;
+        } else if /(?:\d+)\>/ {
             yield constant.numeric;
         } else if /\w+/ {
             // Gobble word chars to align the next iteration on a word boundary.
