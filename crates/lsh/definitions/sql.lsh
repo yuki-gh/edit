@@ -63,6 +63,8 @@ pub fn sql() {
             yield method;
         } else if /(\w+)\s*\(/ {
             yield $1 as method;
+        } else if /@@?\w+\>/ {
+            yield variable;
             yield keyword.other;
         } else if /(?i:<>|>=|=>|<=|=|>|<|\+|-|\*|\/)/ {
             // operators
