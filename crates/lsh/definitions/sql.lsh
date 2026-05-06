@@ -47,7 +47,7 @@ pub fn sql() {
                     break;
                 }
             }
-        } else if /\[((?i:bit|varbinary|binary|(tiny|medium|long)?blob|bool|nchar|char|datetime2?|date|decimal|double precision|float|integer|(tiny|small|medium|big)?int|numeric|real|sysname|(tiny|medium|long)?text|timestamp|time|nvarchar|varchar2|varchar|xml))\]\>/ {
+        } else if /\[((?i:bit|varbinary|binary|(tiny|medium|long)?blob|bool|nchar|char|datetime2?|date|decimal|double precision|float|image|integer|(tiny|small|medium|big)?int|money|numeric|real|sysname|(tiny|medium|long)?text|timestamp|time|nvarchar|varchar2|varchar|xml))\]\>/ {
             // data types
             yield $1 as keyword.other;
         } else if /\[/ {
@@ -60,7 +60,7 @@ pub fn sql() {
                     break;
                 }
             }
-        } else if /(?i:bit|varbinary|binary|(tiny|medium|long)?blob|bool|nchar|char|datetime2?|date|decimal|double precision|float|integer|(tiny|small|medium|big)?int|numeric|real|sysname|(tiny|medium|long)?text|timestamp|time|nvarchar|varchar2|varchar|xml)\>/ {
+        } else if /(?i:bit|varbinary|binary|(tiny|medium|long)?blob|bool|nchar|char|datetime2?|date|decimal|double precision|float|image|integer|(tiny|small|medium|big)?int|money|numeric|real|sysname|(tiny|medium|long)?text|timestamp|time|nvarchar|varchar2|varchar|xml)\>/ {
             // data types
             yield keyword.other;
         } else if /(?i:add|all|alter|analyze|and|any|asc|between|case|check|collate|column|constraint|continue|create|cross|current_date|current_timestamp|current_time|current_user|database|declare|delete|default|desc|distinct|drop|else|end|except|exists|foreign|for|from|full|grant|group|having|index|inner|insert|intersect|into|join|key|kill|left|like|limit|not|order|primary|references|return|revoke|right|schema|select|set|some|table|union|unique|update|user|using|values|when|where|with)\>/ {
