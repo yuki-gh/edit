@@ -53,7 +53,7 @@ pub fn sql() {
         } else if /(?i:begin|cast|catch|coalesce|commit|cursor|exec|exit|explain|fetch|function|initially|leading|load|localtime|localtimestamp|lock|maxvalue|only|open|option|outer|output|over|partition|percent|plan|print|procedure|public|purge|range|read|returns|replace|rollback|then|throw|transaction|truncate|trunc|try|use|while|write)\>/ {
             // implementation-specific reserved words
             yield keyword.other;
-        } else if /(?i:binary|bigint|integer|int|varchar2|varchar|char|float|numeric|double|precision|real)\>/ {
+        } else if /\[?(?i:bit|varbinary|binary|(tiny|medium|long)?blob|bool|nchar|char|datetime2?|date|decimal|double precision|float|integer|(tiny|small|medium|big)?int|numeric|real|(tiny|medium|long)?text|timestamp|time|nvarchar|varchar2|varchar)\]?\>/ {
             // data types
             yield keyword.other;
         } else if /(?i:true|false|null)\>/ {
