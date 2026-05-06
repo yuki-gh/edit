@@ -4,7 +4,17 @@ pub fn sql() {
     until /$/ {
         yield other;
 
-        if /[BENX]?'/ {
+        if /[BNX]?'/ {
+            loop {
+                yield string;
+                await input;
+                if /''/ {}
+                else if /'/ {
+                    yield string;
+                    break;
+                }
+            }
+        } else if /E'/ {
             loop {
                 yield string;
                 await input;
@@ -18,7 +28,7 @@ pub fn sql() {
             loop {
                 yield string;
                 await input;
-                if /(""|\\.)/ {}
+                if /("")/ {}
                 else if /"/ {
                     yield string;
                     break;
