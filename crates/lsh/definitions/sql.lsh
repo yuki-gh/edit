@@ -30,9 +30,9 @@ pub fn sql() {
         } else if /(?i:binary|bigint|integer|int|varchar2|varchar|char|float|numeric|double|precision|real)\>/ {
             // data types
             yield keyword.other;
-        } else if /(?:true|false|null)\>/ {
+        } else if /(?i:true|false|null)\>/ {
             yield constant.language;
-        } else if /(?:in|as|by|is|off|of|on|or|to)\>/ {
+        } else if /(?i:in|as|by|is|off|of|on|or|to)\>/ {
             yield keyword.other;
         } else if /(?i:<>|>=|=>|<=|=|>|<|\+|-|\*|\/)/ {
             // operators
