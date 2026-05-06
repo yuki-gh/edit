@@ -8,8 +8,19 @@ pub fn sql() {
             single_quote_string();
         } else if /"/ {
             double_quote_string();
+        } else if /#.*/ {
+            yield comment;
         } else if /--.*/ {
             yield comment;
+        } else if /\/\*/ {
+            loop {
+                yield comment;
+                await input;
+                if /\*\// {
+                    yield comment;
+                    break;
+                }
+            }
         } else if /(?i:add|all|alter|analyze|and|any|asc|avg|between|case|check|collate|column|constraint|continue|count|create|cross|current_date|current_timestamp|current_time|current_user|database|declare|delete|default|desc|distinct|drop|else|end|except|exists|for|foreign|from|full|grant|group|having|index|inner|insert|intersect|into|join|key|kill|left|like|limit|not|order|primary|references|return|revoke|right|schema|select|set|some|table|union|unique|update|user|using|values|when|where|with)\>/ {
             // common reserved words
             yield keyword.other;
