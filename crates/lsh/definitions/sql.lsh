@@ -24,6 +24,16 @@ pub fn sql() {
                     break;
                 }
             }
+        } else if /\[/ {
+	    // MS SQL Server
+            loop {
+                yield other;
+                await input;
+                if /\]/ {
+                    yield other;
+                    break;
+                }
+            }
         } else if /#.*/ {
             yield comment;
         } else if /--.*/ {
