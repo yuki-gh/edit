@@ -29,6 +29,7 @@ setup)
 	git clone git@github.com:yuki-gh/arm64.git
 	git clone git@github.com:yuki-gh/riscv.git
 	git clone git@github.com:yuki-gh/retropc-tools.git
+	git clone https://github.com/microsoft/sql-server-samples.git
 	mkdir forstie
 	cd forstie
 	curl https://api.github.com/users/forstie/gists | jq -r '.[].files[].raw_url' | wget -i -
@@ -36,7 +37,7 @@ setup)
 
 sql)
 	# .sql
-	find ../forstie -name '*.sql' | sort | head | while read -r f; do
+	find ../sql-server-samples/samples../forstie  -name '*.sql' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
