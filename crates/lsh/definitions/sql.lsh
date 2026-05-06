@@ -47,7 +47,7 @@ pub fn sql() {
                     break;
                 }
             }
-        } else if /(?i:add|all|alter|analyze|and|any|asc|avg|between|case|check|collate|column|constraint|continue|count|create|cross|current_date|current_timestamp|current_time|current_user|database|declare|delete|default|desc|distinct|drop|else|end|except|exists|for|foreign|from|full|grant|group|having|index|inner|insert|intersect|into|join|key|kill|left|like|limit|max|min|not|order|primary|references|return|revoke|right|schema|select|set|some|sum|table|union|unique|update|user|using|values|when|where|with)\>/ {
+        } else if /(?i:add|all|alter|analyze|and|any|asc|between|case|check|collate|column|constraint|continue|count|create|cross|current_date|current_timestamp|current_time|current_user|database|declare|delete|default|desc|distinct|drop|else|end|except|exists|for|foreign|from|full|grant|group|having|index|inner|insert|intersect|into|join|key|kill|left|like|limit|not|order|primary|references|return|revoke|right|schema|select|set|some|table|union|unique|update|user|using|values|when|where|with)\>/ {
             // common reserved words
             yield keyword.other;
         } else if /(?i:begin|cast|catch|coalesce|commit|cursor|exec|exit|explain|fetch|function|initially|leading|load|localtime|localtimestamp|lock|maxvalue|only|open|option|outer|output|over|partition|percent|plan|print|procedure|public|purge|range|read|returns|replace|rollback|then|throw|transaction|truncate|trunc|try|use|while|write)\>/ {
@@ -59,6 +59,8 @@ pub fn sql() {
         } else if /(?i:true|false|null)\>/ {
             yield constant.language;
         } else if /(?i:in|as|by|is|off|of|on|or|to)\>/ {
+        } else if /(?i:abs|avg|ceiling|ceil|conv|count|dec|degrees|floor|max|min|mod|now|power|pow|radians|random|rand|round|sign|sum|truncate|trunc)\>/ {
+            yield method;
             yield keyword.other;
         } else if /(?i:<>|>=|=>|<=|=|>|<|\+|-|\*|\/)/ {
             // operators
