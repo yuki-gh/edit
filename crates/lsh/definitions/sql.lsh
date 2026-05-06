@@ -58,13 +58,13 @@ pub fn sql() {
             yield keyword.other;
         } else if /(?i:true|false|null)\>/ {
             yield constant.language;
-        } else if /(?i:in|as|by|is|off|of|on|or|to)\>/ {
         } else if /(?i:abs|avg|ceiling|ceil|conv|count|dec|degrees|floor|max|min|mod|now|power|pow|radians|random|rand|round|sign|sum|truncate|trunc)\>/ {
             yield method;
         } else if /(\w+)\s*\(/ {
             yield $1 as method;
         } else if /@@?\w+\>/ {
             yield variable;
+        } else if /(?i:in|as|by|go|if|is|off|of|on|or|to)\>/ {
             yield keyword.other;
         } else if /(?i:<>|>=|=>|<=|=|>|<|\+|-|\*|\/)/ {
             // operators
