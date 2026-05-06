@@ -5,9 +5,25 @@ pub fn sql() {
         yield other;
 
         if /'/ {
-            single_quote_string();
+            loop {
+                yield string;
+                await input;
+                if /(''|\\.)/ {}
+                else if /'/ {
+                    yield string;
+                    break;
+                }
+            }
         } else if /"/ {
-            double_quote_string();
+            loop {
+                yield string;
+                await input;
+                if /(""|\\.)/ {}
+                else if /"/ {
+                    yield string;
+                    break;
+                }
+            }
         } else if /#.*/ {
             yield comment;
         } else if /--.*/ {
