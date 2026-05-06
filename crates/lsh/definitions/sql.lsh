@@ -73,12 +73,12 @@ pub fn sql() {
             yield constant.language;
 //        } else if /(?i:abs|avg|ceiling|ceil|conv|count|dec|degrees|floor|max|min|mod|now|power|pow|radians|random|rand|round|sign|sum|truncate|trunc)\>/ {
 //            yield method;
-        } else if /(\w+)\s*\(/ {
-            yield $1 as method;
         } else if /@@?\w+\>/ {
             yield variable;
         } else if /(?i:in|as|by|go|if|is|off|of|on|or|to)\>/ {
             yield keyword.other;
+        } else if /(\w+)\s*\(/ {
+            yield $1 as method;
         } else if /(?i:<>|>=|=>|<=|=|>|<|\+|-|\*|\/)/ {
             // operators
             yield keyword.control;
