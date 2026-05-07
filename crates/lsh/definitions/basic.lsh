@@ -25,11 +25,12 @@ pub fn basic() {
                 }
                 await input;
             }
-        } else if /(REM[ "].*|\'.*|REM)/ {
+        } else if /(?i:rem)\>.*/ {
             yield comment;
-        } else if /(DATA)[ "].*/ {
-            yield $1 as keyword.other;
-            yield other;
+        } else if /\'.*/ {
+            yield comment;
+        } else if /(?i:data)\>/ {
+            yield keyword.other;
         } else if /((?i:auto|else|gosub|goto|list|renum|restore|resume|run|then))\s*\d+/ {
             yield $1 as keyword.control;
             yield other;
