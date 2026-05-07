@@ -47,6 +47,15 @@ pub fn sql() {
                     break;
                 }
             }
+        } else if /\{/ {
+            loop {
+                yield comment;
+                await input;
+                if /\}/ {
+                    yield comment;
+                    break;
+                }
+            }
         } else if /\[((?i:bit|varbinary|binary|(tiny|medium|long)?blob|bool|nchar|char|datetime2?|date|decimal|double precision|float|image|integer|(tiny|small|medium|big)?int|money|numeric|real|sysname|(tiny|medium|long)?text|timestamp|time|nvarchar|varchar2|varchar|xml))\]\>/ {
             // data types
             yield $1 as keyword.other;
