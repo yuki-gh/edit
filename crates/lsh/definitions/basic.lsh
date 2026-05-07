@@ -49,7 +49,10 @@ pub fn basic() {
         } else if /(?i:and|mod|not|or|<>|>=|<=|=|>|<|\+|-|\*|\/|\^|\\)/ {
             // operators
             yield keyword.control;
-        } else if /(\d*\.\d+[eEdD][\+-]?\d+|\d*\.\d+)/ {
+        } else if /\d*\.\d+[eEdD][\+-]?\d+/ {
+            // real
+            yield constant.numeric;
+        } else if /\d*\.\d+/ {
             // real
             yield constant.numeric;
         } else if /(\&[Hh][\dA-Fa-f]+)/ {
