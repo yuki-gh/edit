@@ -34,8 +34,6 @@ pub fn sql() {
                     break;
                 }
             }
-        } else if /#.*/ {
-            yield comment;
         } else if /--.*/ {
             yield comment;
         } else if /\/\*/ {
@@ -56,6 +54,11 @@ pub fn sql() {
                     break;
                 }
             }
+        } else if /##?\w+\>/ {
+            // MS SQL Server tempdb table name
+            yield variable;
+        } else if /#.*/ {
+            yield comment;
         } else if /\[((?i:bit|varbinary|binary|(tiny|medium|long)?blob|bool|nchar|char|datetime2?|date|decimal|double precision|float|image|integer|(tiny|small|medium|big)?int|money|numeric|real|sysname|(tiny|medium|long)?text|timestamp|time|nvarchar|varchar2|varchar|xml))\]\>/ {
             // data types
             yield $1 as keyword.other;
