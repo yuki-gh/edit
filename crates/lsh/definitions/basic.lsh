@@ -10,7 +10,7 @@
 // TODO: rem, data, label
 pub fn basic() {
     if /\d+/ {
-        yield constant.numeric;
+        yield other;
     }
 
     until /$/ {
@@ -32,7 +32,7 @@ pub fn basic() {
             yield other;
         } else if /((?i:auto|else|gosub|goto|list|renum|restore|resume|run|then))\s*\d+/ {
             yield $1 as keyword.control;
-            yield constant.numeric;
+            yield other;
         } else if /(?i:cload|cmd|connect|console|csave|cursor|defusr|delete|dskf|dski\$|dsko\$|eqv|exec|format|help|interval|kanji|lfiles|llist|loadm|motor|mount|remove|renum|savem|segptr|step|symbol|talk|xor)/ {
             // extra keywords (longer)
             yield keyword.other;
