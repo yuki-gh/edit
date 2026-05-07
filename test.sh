@@ -21,18 +21,21 @@ setup)
 	cd ..
 	git clone https://github.com/coding-horror/basic-computer-games.git
 	git clone https://github.com/Alhadis/language-emacs-lisp.git
-	git clone git@github.com:komljen/dockerfile-examples.git
-	git clone https://github.com/yuki-gh/MySQL-unofficial-ja.git
+	git clone https://github.com/komljen/dockerfile-examples.git
+	git clone https://github.com/microsoft/sql-server-samples.git
+	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
 	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
 	git clone git@github.com:yuki-gh/MonoDevelop-unofficial-ja.git
 	git clone git@github.com:yuki-gh/UnityEditor-unofficial-ja.git
 	git clone git@github.com:yuki-gh/arm64.git
 	git clone git@github.com:yuki-gh/riscv.git
 	git clone git@github.com:yuki-gh/retropc-tools.git
-	git clone https://github.com/microsoft/sql-server-samples.git
-	mkdir forstie
-	cd forstie
-	curl https://api.github.com/users/forstie/gists | jq -r '.[].files[].raw_url' | wget -i -
+	if ! [ -d forstie ]
+	then
+		mkdir forstie
+		cd forstie
+		curl https://api.github.com/users/forstie/gists | jq -r '.[].files[].raw_url' | wget -i -
+	fi
 	;;
 
 sql)
