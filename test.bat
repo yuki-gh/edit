@@ -18,6 +18,10 @@ for /r ..\forstie %%f in (*.sql) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
 	pause
 )
+for /r ..\sql-server-samples\samples %%f in (*.sql) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
 exit /b
 
 :el
