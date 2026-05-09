@@ -14,7 +14,7 @@ if ($args.Count -eq 0) {
 
 switch ($args[0]) {
 	"sql" {
-		Get-ChildItem "../forstie" -Recurse -Filter *.sql |
+		Get-ChildItem "../sql-server-samples/samples" -Recurse -Filter *.sql |
 			Sort-Object FullName |
 			Select-Object -First 10 | ForEach-Object {
 				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
