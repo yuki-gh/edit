@@ -31,7 +31,7 @@ pub fn basic() {
             yield comment;
         } else if /(?i:data)\>/ {
             yield keyword.other;
-        } else if /((?i:auto|else|gosub|goto|list|renum|restore|resume|run|then))\s*\d+/ {
+        } else if /((?i:auto|edit|else|gosub|goto|list|renum|restore|resume|run|then))\s*\d+/ {
             yield $1 as keyword.control;
             yield other;
         } else if /(?i:cload|cmd|connect|console|csave|cursor|defusr|delete|dskf|dski\$|dsko\$|eqv|exec|format|help|interval|kanji|lfiles|llist|loadm|motor|mount|remove|renum|savem|segptr|step|symbol|talk|xor)/ {
@@ -40,10 +40,10 @@ pub fn basic() {
         } else if /(?i:abs|asc|as|atn|base|beep|bload|bsave|call|cdbl|chain|chr\$|cint|circle|clear|close|cls|color|common|com|cos|csng|csrlin|cvd|cvi|cvs|date\$|defdbl|defint|defsng|defstr|def|dim|end|eof|erase|erl|error|err|exp|field|files|fix|fre|get|hex\$|inkey\$|input|inp|instr|int|key|kill|left\$|len|let|line|locate|loc|lof|log|lpos|lprint|lset|mid\$|mkd\$|mki\$|mks\$|name|new|oct\$|on|open|option|out|paint|peek|pen|play|point|poke|pos|preset|print|pset|put|randomize|read|restore|resume|right\$|rnd|rset|run|screen|sgn|sin|sound|space\$|spc|sqr|stick|stop|str\$|strig|string\$|swap|system|tab|tan|time\$|troff|tron|using|val|varptr|view|wait|wend|while|width|window|write)/ {
             // GitHub-recognized keywords
             yield keyword.other;
-        } else if /(?i:auto|cont|edit|imp|list|load|map|mon|off|save|term|usr)/ {
+        } else if /(?i:cont|imp|load|map|mon|off|save|term|usr)/ {
             // extra keywords (shorter)
             yield keyword.other;
-        } else if /(?i:else|for|gosub|goto|if|next|return|then|to)/ {
+        } else if /(?i:for|if|next|to)/ {
             // control statements
             yield keyword.control;
         } else if /(?i:and|mod|not|or|<>|>=|<=|=|>|<|\+|-|\*|\/|\^|\\)/ {
