@@ -114,7 +114,7 @@ pub fn sql() {
             yield keyword.other;
         } else if /(\w+)\s*\(/ {
             yield $1 as method;
-        } else if /(?i:<>|>=|=>|<=|=|>|<|\+|-|\*|\/)/ {
+        } else if /(?i:<>|>=|=>|<=|=|>|<|\+|-|\*|\/|\|\||\^)/ {
             // operators
             yield keyword.control;
         } else if /(?:\d*\.\d+)\>/ {
