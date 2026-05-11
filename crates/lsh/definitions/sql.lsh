@@ -59,6 +59,9 @@ pub fn sql() {
             yield variable;
         } else if /#.*/ {
             yield comment;
+        } else if /\$[^$]*\$/ {
+            // PostgreSQL dollar quote
+            yield string;
         } else if /\[((?i:year|xml|varchar|varbinary|tinyint|timestamp|time|smallmoney|smallint|smalldatetime|real|precision|path|nvarchar|numeric|nclob|nchar|money|interval|integer|int|image|float|double|decimal|dec|datetimeoffset|datetime2|datetime|date|clob|character|char|boolean|blob|bit|binary))\]\>/ {
             // MS SQL Server data types
             yield $1 as keyword.other;
