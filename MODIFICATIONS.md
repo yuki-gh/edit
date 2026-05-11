@@ -57,17 +57,16 @@ C/C++/Java style placeholders (`%s` etc) and C#/.NET style ones (`{0}` etc) are 
 
 ## Test script
 
-1. Run `./test.sh setup` first to obtain sample scripts in sibling directories.
-2. Run `./test.sh` (or .ps1, .bat) without any parameters to test sample scripts in `assets/highlighting-tests/`
+1. Run `./test.sh` (or .ps1, .bat) without any parameters to test sample scripts in `assets/highlighting-tests/`
+2. Run `./test.sh setup` first to obtain sample scripts in sibling directories.
 3. Run `./test.sh target` (where target is sql, el, bas etc.) to test sample scripts (in the obtained directories, in this repo itself or in fixed system directories).
 
-- bash (for WSL/MSYS2/macOS)
-  - `setup` target clones following repositories:
-    - https://github.com/coding-horror/basic-computer-games.git
-    - https://github.com/Alhadis/language-emacs-lisp.git
+- bash (for WSL/MSYS2/macOS/Linux)
+  - `./test.sh setup` clones following repositories:
+    - https://github.com/coding-horror/basic-computer-games.git (for .bas)
     - https://github.com/komljen/dockerfile-examples.git
-    - https://github.com/microsoft/sql-server-samples.git
-    - https://gist.github.com/forstie
+    - https://github.com/microsoft/sql-server-samples.git (for MS SQL Server .sql)
+    - https://gist.github.com/forstie (for IBM DB2 .sql)
 <!--
 - https://github.com/yuki-gh/MySQL-unofficial-ja.git
 - https://github.com/yuki-gh/JMeter-unofficial-ja.git
