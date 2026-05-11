@@ -84,3 +84,14 @@ C/C++/Java style placeholders (`%s` etc) and C#/.NET style ones (`{0}` etc) are 
 
 rust-toolchain.toml: fix rustc/cargo version 1.95.0
 
+## References
+
+- [Highlighting Rules in GitHub](https://github.com/github-linguist/linguist/tree/main/vendor)
+  - [Basic](https://github.com/telnet23/language-basic/blob/master/grammars/basic.cson)
+  - [Batch File](https://github.com/mmims/language-batchfile/blob/master/grammars/batchfile.cson)
+  - [Dockerfile](https://github.com/asbjornenge/Docker.tmbundle/tree/master/Syntaxes)
+  - [Emacs Lisp](https://github.com/Alhadis/language-emacs-lisp/blob/master/grammars/emacs-lisp.cson)
+  - [GNU gettext](https://github.com/textmate/gettext.tmbundle/blob/master/Syntaxes/Gettext.tmLanguage)
+  - [Makefile](https://github.com/textmate/make.tmbundle/blob/master/Syntaxes/Makefile.plist)
+  - [SQL](https://github.com/textmate/sql.tmbundle/blob/master/Syntaxes/SQL.plist)
+  - [VisualStudio Solution](https://github.com/Nixinova/NovaGrammars/blob/main/grammars/solution.yaml-tmLanguage)
