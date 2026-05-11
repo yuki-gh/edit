@@ -22,7 +22,15 @@ setup)
 	git clone https://github.com/coding-horror/basic-computer-games.git
 	git clone https://github.com/Alhadis/language-emacs-lisp.git
 	git clone https://github.com/komljen/dockerfile-examples.git
+
 	git clone https://github.com/microsoft/sql-server-samples.git
+	git clone https://github.com/microsoft/sql-data-warehouse-samples.git
+	git clone https://github.com/mmessano/SQL.git mmessano-SQL
+	git clone https://github.com/DataResearchLabs/sql_scripts.git
+	git clone https://github.com/EmanueleMeazzo/tsql.tech-Code-snippets.git
+	git clone https://github.com/sambacha/dune-snippets.git
+	git clone https://github.com/waleedsial/SQL.git waleedsial-SQL
+
 	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
 	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
 	git clone git@github.com:yuki-gh/MonoDevelop-unofficial-ja.git
@@ -30,6 +38,7 @@ setup)
 	git clone git@github.com:yuki-gh/arm64.git
 	git clone git@github.com:yuki-gh/riscv.git
 	git clone git@github.com:yuki-gh/retropc-tools.git
+
 	if ! [ -d forstie ]
 	then
 		mkdir forstie
