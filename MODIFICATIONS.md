@@ -1,7 +1,7 @@
 
 # Microsoft Edit (forked)
 
-## SQL
+## SQL (.sql)
 
 - MySQL
 - PostgreSQL
@@ -16,9 +16,10 @@
 - IBM DB2
 
 
-## VisualStudio solution
 
-## Microsoft BASIC
+## VisualStudio solution (.sln)
+
+## Microsoft BASIC (.bas)
 
 Good old 1980's Microsoft BASIC (and alikes) on 8-bit PCs.
 
@@ -30,11 +31,11 @@ Line numbers and integer constants are treated differently.
 
 Variable references are highlighted.
 
-## Emacs Lisp
+## Emacs Lisp (.el)
 
 Highlighted keywords are those in GitHub plus dozens of common keywords.
 
-## MS-DOS/Windows Batch File
+## MS-DOS/Windows Batch File (.bat)
 
 Built-in commands are highlighted.
 
@@ -42,7 +43,7 @@ Built-in commands are highlighted.
 
 Variable references and pseudotargets are highlighted.
 
-## GNU gettext (PO)
+## GNU gettext (.po)
 
 C/C++/Java style placeholders (`%s` etc) and C#/.NET style ones (`{0}` etc) are highlighted.
 
