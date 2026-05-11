@@ -15,6 +15,7 @@
 - Oracle
 - IBM DB2
 
+There's a bug in LSH runtime that cannot handle some SQL string literals well.
 
 
 ## VisualStudio solution (.sln)
