@@ -1,8 +1,13 @@
 #[display_name = "JSON"]
 #[path = "**/*.json"]
 #[path = "**/*.jsonc"]
+// Unreal Engine
 #[path = "**/*.uproject"]
 #[path = "**/*.uplugin"]
+// Unity
+#[path = "**/*.asmdef"]
+#[path = "**/*.shadergraph"]
+#[path = "**/*.shadersubgraph"]
 pub fn json() {
     until /$/ {
         yield other;
