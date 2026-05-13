@@ -48,13 +48,23 @@ Variable references and pseudotargets are highlighted.
 
 C/C++/Java style placeholders (`%s` etc) and C#/.NET style ones (`{0}` etc) are highlighted.
 
+## Unity ShaderLab (.shader)
+
 ## XML
 
-`.htm` `.jmx` and `.vbproj` added.
+`.htm`, `.jmx` and `.vbproj` added.
+
+## YAML
+
+Unity YAML (`.meta`, `.asset`, `.unity`, `.prefab`, `.anim`, `.mat` etc.) added.
+
+## JSON
+
+Unreal Engine (`.uproject`, `.uplugin`) and Unity (`.asmdef`, `.shadergraph`, .`shadersubgraph`) added.
 
 ## properties
 
-`.toml` added 
+`.toml` added.
 
 ## Test script
 
@@ -75,7 +85,7 @@ C/C++/Java style placeholders (`%s` etc) and C#/.NET style ones (`{0}` etc) are 
 - https://github.com/yuki-gh/UnityEditor-unofficial-ja.git
 -->
 - PowerShell
-  - no `setup' target
+  - no `setup` target
   - look for Cygwin/MSYS2 Emacs Lisp for `el` target
 - Windows Batch
   - no `setup` target
