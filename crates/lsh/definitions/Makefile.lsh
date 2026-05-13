@@ -33,7 +33,10 @@ pub fn makefile() {
             yield comment;
         } else if /\.(DELETE_ON_ERROR|INTERMEDIATE|PHONY|PRECIOUS|SECONDARY|SUFFIXES)/ {
             yield keyword.other;
-        } else if /(\w+)\s*=/ {
+        } else if /-D(\w+)=/ {
+            yield $1 as variable;
+            yield other;
+        } else if /-D(\w+)\>/ {
             yield $1 as variable;
             yield other;
         } else if /\$\$?\([^)]+\)/ {
