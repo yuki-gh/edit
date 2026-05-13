@@ -9,7 +9,7 @@ pub fn sln() {
         } else if /#.*/ {
             yield comment;
         } else if /Microsoft Visual Studio Solution File, Format Version .*/ {
-            yield comment;
+            yield meta.header;
         } else if /(Version = )[0-9.]+/ {
             yield $1 as other;
             yield constant.numeric;
