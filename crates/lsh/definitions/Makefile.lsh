@@ -1,6 +1,11 @@
 #[display_name = "Makefile"]
 #[path = "**/Makefile"]
 pub fn makefile() {
+    if /(\w+)\s*:?=/ {
+        yield $1 as variable;
+        yield other;
+    }
+
     until /$/ {
         yield other;
 
