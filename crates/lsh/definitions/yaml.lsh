@@ -1,9 +1,23 @@
 #[display_name = "YAML"]
 #[path = "**/*.yaml"]
 #[path = "**/*.yml"]
+// Unity
+#[path = "**/*.meta"]
+#[path = "**/*.asset"]
+#[path = "**/*.unity"]
+#[path = "**/*.prefab"]
+#[path = "**/*.anim"]
+#[path = "**/*.mat"]
+#[path = "**/*.preset"]
+#[path = "**/*.controller"]
+#[path = "**/*.lighting"]
 pub fn yaml() {
     if /\s+/ {
         // Leading whitespace
+    }
+    if /%.*/ {
+        // Unity
+        yield meta.header;
     }
 
     var indentation = off;
