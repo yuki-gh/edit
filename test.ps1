@@ -13,51 +13,60 @@ if ($args.Count -eq 0) {
 }
 
 switch ($args[0]) {
-	"sql" {
-		Get-ChildItem "../sql-server-samples/samples" -Recurse -Filter *.sql |
-			Sort-Object FullName |
+	"shader" {
+		Get-ChildItem "../arfoundation-samples/Assets" -Recurse -Filter *.shader |
+		Sort-Object FullName |
 			Select-Object -First 10 | ForEach-Object {
 				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
 				pause
 			}
+	}
+
+	"sql" {
+		Get-ChildItem "../sql-server-samples/samples" -Recurse -Filter *.sql |
+		Sort-Object FullName |
+		Select-Object -First 10 | ForEach-Object {
+			cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+			pause
+		}
 	}
 
 	"el" {
 		$emacs_dir = "C:\cygwin64\usr\share\emacs"
 		$emacs_dir = "C:\msys64\usr\share\emacs"
 		Get-ChildItem $emacs_dir -Recurse -Filter *.el |
-			Sort-Object FullName |
-			Select-Object -First 10 | ForEach-Object {
-				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
-				pause
-			}
+		Sort-Object FullName |
+		Select-Object -First 10 | ForEach-Object {
+			cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+			pause
+		}
 	}
 
 	"bas" {
 		Get-ChildItem "../basic-computer-games" -Recurse -Filter *.bas |
-			Sort-Object FullName |
-			Select-Object -First 10 | ForEach-Object {
-				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
-				pause
-			}
+		Sort-Object FullName |
+		Select-Object -First 10 | ForEach-Object {
+			cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+			pause
+		}
 	}
 
 	"sln" {
 		Get-ChildItem ".." -Recurse -Filter *.sln |
-			Sort-Object FullName |
-			Select-Object -First 10 | ForEach-Object {
-				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
-				pause
-			}
+		Sort-Object FullName |
+		Select-Object -First 10 | ForEach-Object {
+			cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+			pause
+		}
 	}
 
 	"bat" {
 		Get-ChildItem ".." -Recurse -Include *.bat |
-			Where-Object { $_.FullName -notmatch "highlighting-tests" } |
-			Select-Object -First 10 | ForEach-Object {
-				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
-				pause
-			}
+		Where-Object { $_.FullName -notmatch "highlighting-tests" } |
+		Select-Object -First 10 | ForEach-Object {
+			cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+			pause
+		}
 	}
 
 	"cs" {

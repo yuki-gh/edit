@@ -30,6 +30,7 @@ setup)
 	git clone https://github.com/EmanueleMeazzo/tsql.tech-Code-snippets.git
 	git clone https://github.com/sambacha/dune-snippets.git
 	git clone https://github.com/waleedsial/SQL.git waleedsial-SQL
+	git clone https://github.com/Unity-Technologies/arfoundation-samples.git
 
 	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
 	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
@@ -45,6 +46,13 @@ setup)
 		cd forstie
 		curl https://api.github.com/users/forstie/gists | jq -r '.[].files[].raw_url' | wget -i -
 	fi
+	;;
+
+shader)
+	# .shader
+	find ../arfoundation-samples/Assets ../forstie  -name '*.shader' | sort | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
 	;;
 
 sql)
