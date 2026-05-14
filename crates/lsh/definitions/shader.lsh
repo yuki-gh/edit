@@ -10,9 +10,9 @@ pub fn json() {
             double_quote_string();
         } else if /(?:return)\>/ {
             yield keyword.control;
-        } else if /(?:SubShader|Shader|Properties|Tags|FallBack|Pass|ZWrite|ZTest|LOD|ColorMask|Cull|Lighting|PackageRequirements|Offset|BlendOp|Blend|Name|Material|Lighting|SeparateSpecular|ColorMaterial|SetTexture|AlphaTest|Fog|BindChannels|CGPROGRAM|ENDCG|HLSLPROGRAM|ENDHLSL|CBUFFER_START|CBUFFER_END|SV_POSITION|POSITION|NORMAL|TEXCOORD\d|TANGENT|COLOR\d|SV_Target(\d)?|SV_DEPTH|#pragma|#include|#ifdef|#endif)\>/ {
+        } else if /(?:SubShader|Shader|Properties|Tags|FallBack|Pass|ZWrite|ZTest|LOD|ColorMask|Cull|Lighting|PackageRequirements|Offset|BlendOp|Blend|Name|Material|Lighting|SeparateSpecular|ColorMaterial|SetTexture|AlphaTest|Fog|BindChannels|CGPROGRAM|ENDCG|HLSLPROGRAM|ENDHLSL|CBUFFER_START|CBUFFER_END|SV_POSITION|POSITION|NORMAL|TEXCOORD\d|TANGENT|COLOR\d?|SV_Target\d?|SV_DEPTH|#pragma|#include|#ifdef|#endif)\>/ {
             yield keyword.other;
-        } else if /(?:real4|real3|real2|real|fixed4|fixed3|fixed2|fixed|half4|half3|half2|half|float4x4|float4|float3|float2|float|Float|Int|Color|Vector|2D|Cube|3D|VECTOR|struct|void|const|color|sampler[23]D)\>/ {
+        } else if /(?:real[234]?|fixed[234]?|half[234]?|float4x4|float[234]?|Float|Int|Color|Vector|2D|Cube|3D|VECTOR|struct|void|const|sampler[23]D)\>/ {
             yield keyword.other;
         } else if /(\w+)\s*\(/ {
             yield $1 as method;
