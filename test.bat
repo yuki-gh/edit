@@ -27,6 +27,13 @@ for /r ..\arfoundation-samples\Assets %%f in (*.shader) do (
 )
 exit /b
 
+:hlsl
+for /r ..\arfoundation-samples\Assets %%f in (*.shader *.cginc) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :sql
 for /r ..\forstie %%f in (*.sql) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more

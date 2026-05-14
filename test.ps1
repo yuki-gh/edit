@@ -31,6 +31,13 @@ switch ($args[0]) {
 			}
 	}
 
+	"hlsl" {
+		Get-ChildItem "../arfoundation-samples/Assets" -Recurse -Include *.hlsl, *.cginc | ForEach-Object {
+			cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+			pause
+		}
+	}
+
 	"sql" {
 		Get-ChildItem "../sql-server-samples/samples" -Recurse -Filter *.sql |
 		Sort-Object FullName |

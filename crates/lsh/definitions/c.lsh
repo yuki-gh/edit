@@ -1,6 +1,8 @@
 #[display_name = "C"]
 #[path = "**/*.c"]
 #[path = "**/*.h"]
+#[path = "**/*.hlsl"]
+#[path = "**/*.cginc"]
 pub fn c() {
     until /$/ {
         yield other;
@@ -38,10 +40,12 @@ pub fn c() {
                 }
                 await input;
             }
-        } else if /#\s*(?:include|define|undef|if|ifdef|ifndef|elif|else|endif|error|pragma|warning|line)\>/ {
+        } else if /#\s*(?:include|define|undef|ifdef|ifndef|elif|else|endif|if|error|pragma|warning|line)\>/ {
             yield keyword.control;
         } else if /(?:break|case|continue|default|do|else|for|goto|if|return|switch|while)\>/ {
             yield keyword.control;
+        } else if /(?:fixed[234]?|float4x4|float[234]|half[234]?|out|real[234]?|sampler[23]D|uniform|COLOR\d?|NORMAL|POSITION|SV_POSITION|SV_Target\d?|TANGENT|TEXCOORD\d)\>/ {
+            yield keyword.other;
         } else if /(?:auto|char|const|double|enum|extern|float|inline|int|long|register|restrict|short|signed|sizeof|static|struct|typedef|union|unsigned|void|volatile|_Alignas|_Alignof|_Atomic|_Bool|_Complex|_Generic|_Imaginary|_Noreturn|_Static_assert|_Thread_local)\>/ {
             yield keyword.other;
         } else if /(?:true|false|NULL)\>/ {
