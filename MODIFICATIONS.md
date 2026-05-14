@@ -42,7 +42,7 @@ Built-in commands are highlighted.
 
 ## Makefile
 
-Variable references and pseudotargets are highlighted.
+Variable references and phony targets are highlighted.
 
 ## GNU gettext (.po)
 
