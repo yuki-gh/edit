@@ -50,6 +50,10 @@ C/C++/Java style placeholders (`%s` etc) and C#/.NET style ones (`{0}` etc) are 
 
 ## Unity ShaderLab (.shader)
 
+## Unity HLSL (.hlsl, .cginc)
+
+Modified C LSH.
+
 ## CSS (.css)
 
 At-rules support is imperfect.
