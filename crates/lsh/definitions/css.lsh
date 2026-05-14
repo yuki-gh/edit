@@ -1,0 +1,53 @@
+#[display_name = "CSS"]
+#[path = "**/*.css"]
+pub fn css() {
+    until /$/ {
+        yield other;
+
+        if /\/\*/ {
+            c_comment();
+        } else if /[#.]([\w-]+)/ {
+            yield $1 as string;
+        } else if /@media/ {
+            yield keyword.other;
+            until /\{/ {
+                if /(?:not|and|or|only)\>/ {
+                    yield keyword.other;
+                } else if /([\w-]+):/ {
+                    yield $1 as keyword.other;
+                } else if /-?\d+/ {
+                    yield constant.numeric;
+                }
+                yield other;
+            }
+        } else if /@[\w-]+/ {
+            yield keyword.other;
+        } else if /::?([\w-]+)/ {
+            yield $1 as keyword.other;
+        } else if /[\w-]+/ {
+            yield keyword.other;
+        } else if /\{/ {
+            until /\}/ {
+                if /\/\*/ {
+                    c_comment();
+                } else if /'/ {
+                    single_quote_string();
+                } else if /"/ {
+                    double_quote_string();
+                } else if /-?\d+\.\d+/ {
+                    yield constant.numeric;
+                } else if /([\w-]+):/ {
+                    yield $1 as keyword.other;
+                } else if /([\w-]+)\s*\(/ {
+                    yield $1 as method;
+                } else if /-?\d+/ {
+                    yield constant.numeric;
+                } else if /\w+/ {
+                    // Invalid token? Skip.
+                }
+                yield other;
+                await input;
+            }
+        }
+    }
+}

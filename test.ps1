@@ -13,6 +13,15 @@ if ($args.Count -eq 0) {
 }
 
 switch ($args[0]) {
+	"css" {
+		Get-ChildItem "../basic-computer-games" -Recurse -Filter *.css |
+		Sort-Object FullName |
+			Select-Object -First 10 | ForEach-Object {
+				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
 	"shader" {
 		Get-ChildItem "../arfoundation-samples/Assets" -Recurse -Filter *.shader |
 		Sort-Object FullName |

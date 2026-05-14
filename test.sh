@@ -48,6 +48,13 @@ setup)
 	fi
 	;;
 
+css)
+	# .css
+	find ../basic-computer-games -name '*.css' | sort | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 shader)
 	# .shader
 	find ../arfoundation-samples/Assets ../forstie  -name '*.shader' | sort | head | while read -r f; do

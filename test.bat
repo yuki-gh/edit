@@ -13,6 +13,13 @@ if "%1"=="" (
 
 goto %1
 
+:css
+for /r ..\basic-computer-games %%f in (*.css) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :shader
 for /r ..\arfoundation-samples\Assets %%f in (*.shader) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
