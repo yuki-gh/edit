@@ -58,6 +58,8 @@ Modified C LSH.
 
 At-rules support is imperfect.
 
+## Protocol Buffers (.proto)
+
 ## XML
 
 `.htm`, `.jmx` and `.vbproj` added.

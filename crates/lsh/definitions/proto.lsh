@@ -1,0 +1,28 @@
+#[display_name = "Protocol Buffers"]
+#[path = "**/*.proto"]
+pub fn protobuf() {
+    until /$/ {
+        yield other;
+
+        if /\/\/.*/ {
+            yield comment;
+        } else if /"/ {
+            double_quote_string();
+        } else if /((?:enum|extend|message))\s+\w+\s+\>/ {
+            yield $1 as keyword.other;
+            yield other;
+        } else if /(?:default|deprecated|edition|extensions|false|import|optional|option|package|packed|public|repeated|requied|reserved|returns|rpc|service|stream|syntax|true|weak|max|to|=)\>/ { 
+            yield keyword.other;
+        } else if /(?:bool|bytes|double|fixed32|fixed64|float|int32|int64|map|oneof|sfixed32|sfixed64|sint32|sint64|string|uint32|uint64)\>/ {
+            yield keyword.other;
+        } else if /-?\d*\.\d+/ {
+            yield constant.numeric;
+        } else if /-?\d+/ {
+            yield constant.numeric;
+        } else if /\w+/ {
+            // Invalid token? Skip.
+        }
+
+        yield other;
+    }
+}

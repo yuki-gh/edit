@@ -13,6 +13,13 @@ if "%1"=="" (
 
 goto %1
 
+:proto
+for /r ..\protobuf %%f in (*.proto) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :css
 for /r ..\basic-computer-games %%f in (*.css) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
