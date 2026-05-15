@@ -72,7 +72,7 @@ shader)
 
 hlsl)
 	# .hlsl, .cginc
-	find ../arfoundation-samples/Assets -name '*.shader' -o -name '*.cginc' | sort | head | while read -r f; do
+	find ../arfoundation-samples/Assets -name '*.hlsl' -o -name '*.cginc' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
