@@ -44,7 +44,8 @@ pub fn c() {
             yield keyword.control;
         } else if /(?:break|case|continue|default|do|else|for|goto|if|return|switch|while)\>/ {
             yield keyword.control;
-        } else if /(?:fixed[234]?|float4x4|float[234]|half[234]?|out|real[234]?|sampler[23]D|uniform|COLOR\d?|NORMAL|POSITION|SV_POSITION|SV_Target\d?|TANGENT|TEXCOORD\d)\>/ {
+        } else if /(?:double\d(x\d)?|fixed(\d(x\d)?)?|float\d(x\d)?|half(\d(x\d)?)?|matrix|out|real(\d(x\d))?|sampler\dD|uint(\d(x\d)?)?|int\d(x\d)?|uniform|vector|COLOR\d?|NORMAL|POSITION|SV_POSITION|SV_Target\d?|TANGENT|TEXCOORD\d)\>/ {
+            // HLSL data types
             yield keyword.other;
         } else if /(?:auto|char|const|double|enum|extern|float|inline|int|long|register|restrict|short|signed|sizeof|static|struct|typedef|union|unsigned|void|volatile|_Alignas|_Alignof|_Atomic|_Bool|_Complex|_Generic|_Imaginary|_Noreturn|_Static_assert|_Thread_local)\>/ {
             yield keyword.other;
