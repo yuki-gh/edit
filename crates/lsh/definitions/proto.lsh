@@ -11,10 +11,12 @@ pub fn protobuf() {
         } else if /((?:enum|extend|message|oneof))\s+\w+\s+\>/ {
             yield $1 as keyword.other;
             yield other;
-        } else if /(?:default|deprecated|edition|extensions|false|import|optional|option|package|packed|public|repeated|requied|reserved|returns|rpc|service|stream|syntax|true|weak|max|to|=)\>/ { 
+        } else if /(?:default|deprecated|edition|extensions|import|optional|option|package|packed|public|repeated|requied|reserved|returns|rpc|service|stream|syntax|weak|max|to|=)\>/ { 
             yield keyword.other;
         } else if /(?:bool|bytes|double|fixed32|fixed64|float|int32|int64|map|sfixed32|sfixed64|sint32|sint64|string|uint32|uint64)\>/ {
             yield keyword.other;
+        } else if /(?:false|true)\>/ { 
+            yield constant.language;
         } else if /-?\d*\.\d+/ {
             yield constant.numeric;
         } else if /-?\d+/ {
