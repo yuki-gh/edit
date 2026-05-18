@@ -5,7 +5,14 @@ pub fn css() {
         yield other;
 
         if /\/\*/ {
-            c_comment();
+            loop {
+                yield comment;
+                await input;
+                if /\*\// {
+                    yield comment;
+                    break;
+                }
+            }
         } else if /[#.]([\w-]+)/ {
             yield $1 as string;
         } else if /@media/ {
@@ -29,7 +36,14 @@ pub fn css() {
         } else if /\{/ {
             until /\}/ {
                 if /\/\*/ {
-                    c_comment();
+                    loop {
+                        yield comment;
+                        await input;
+                        if /\*\// {
+                            yield comment;
+                            break;
+                        }
+                    }
                 } else if /'/ {
                     single_quote_string();
                 } else if /"/ {

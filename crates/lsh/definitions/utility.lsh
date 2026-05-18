@@ -20,13 +20,13 @@ fn double_quote_string() {
     }
 }
 
-fn c_comment() {
-    loop {
-        yield comment;
-        await input;
-        if /\*\// {
-            yield comment;
-            break;
-        }
-    }
-}
+//fn c_comment() {
+//    loop {
+//        yield comment;
+//        await input;
+//        if /\*\// {
+//            yield comment;
+//            break;
+//        }
+//    }
+//}
