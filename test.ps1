@@ -13,6 +13,15 @@ if ($args.Count -eq 0) {
 }
 
 switch ($args[0]) {
+	"unity" {
+		Get-ChildItem "..\arfoundation-samples\Assets" -Recurse -Include *.unity, *.prefab, *.asset  |
+		Sort-Object FullName |
+			Select-Object -First 10 | ForEach-Object {
+				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
 	"proto" {
 		Get-ChildItem "..\protobuf" -Recurse -Filter *.proto |
 		Sort-Object FullName |

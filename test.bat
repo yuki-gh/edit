@@ -13,6 +13,13 @@ if "%1"=="" (
 
 goto %1
 
+:unity
+for /r ..\arfoundation-samples\Assets %%f in (*.unity *.prefab *.asset) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :proto
 for /r ..\protobuf %%f in (*.proto) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
