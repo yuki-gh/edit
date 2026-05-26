@@ -116,3 +116,4 @@ rust-toolchain.toml: fix rustc/cargo version 1.95.0
   - [Makefile](https://github.com/textmate/make.tmbundle/blob/master/Syntaxes/Makefile.plist)
   - [SQL](https://github.com/textmate/sql.tmbundle/blob/master/Syntaxes/SQL.plist)
   - [VisualStudio Solution](https://github.com/Nixinova/NovaGrammars/blob/main/grammars/solution.yaml-tmLanguage)
+- [Keywords in GW-BASIC](https://github.com/microsoft/GW-BASIC/blob/master/IBMRES.ASM)
