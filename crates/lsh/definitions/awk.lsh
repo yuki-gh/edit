@@ -1,0 +1,62 @@
+#[display_name = "AWK"]
+#[path = "**/*.awk"]
+pub fn awk() {
+    until /$/ {
+        yield other;
+
+        if /(?:BEGINFILE|ENDFILE|BEGIN|END)\>/ {
+            yield keyword.other;
+        }
+
+        if /#.*/ {
+            yield comment;
+        } else if /"/ {
+            until /$/ {
+                yield string;
+                if /\\./ {}
+                else if /"/ { yield string; break; }
+                await input;
+            }
+        } else if /\// {
+            until /$/ {
+                yield string;
+                if /\\./ {}
+                else if /\// { yield string; break; }
+                await input;
+            }
+        } else if /(?:toupper|tolower|system|substr|sub|strtonum|srand|sqrt|sprintf|split|sin|rand|match|log|length|int|index|gsub|gensub|fflush|exp|cos|close|atan2)\>/ {
+            // built-in functions
+            yield method;
+        } else if /(?:xor|typeof|systime|strftime|rshift|patsplit|or|mktime|mkbool|lshift|isarray|dcngettext|dcgettext|bindtextdomain|asorti|asort|and)\>/ {
+            // GAWK built-in functions
+            yield method;
+        } else if /(?:debugger|@include|@load|@namespace)\>/ {
+            // GAWK extentions
+            yield keyword.other;
+        } else if /(?:function|func|printf|print|getline|delete|BEGIN|END)\>/ {
+            yield keyword.other;
+        } else if /(?:while|switch|return|nextfile|next|in|if|for|exit|else|do|default|continue|case|break)\>/ {
+            yield keyword.control;
+        } else if /(?:SYMTAB|SUBSEP|RSTART|RS|ROUNDMODE|RLENGTH|PREC|ORS|OFS|OFMT|NR|NF|IGNORECASE|FUNCTION|FUNCTAB|FS|FNR|FILENAME|ENVIRON|CONVFMT|ARGV|ARGC|\$[0-9])\>/ {
+            // built-in variables
+            yield variable;
+        } else if /(?:TEXTDOMAIN|RT|PROCINFO|LINT|FPAT|FIELDWIDTHS|ERRNO|BINMODE|ARGIND)\>/ {
+            // GAWK built-in variables
+            yield variable;
+        } else if /-?\d*\.\d+(e[+-]?\d+)?/ {
+            yield constant.numeric;
+        } else if /-?0x[\da-fA-F]+/ {
+            yield constant.numeric;
+        } else if /-?0[0-7]+/ {
+            yield constant.numeric;
+        } else if /-?\d+/ {
+            yield constant.numeric;
+        } else if /@?(\w+)\s*\(/ {
+            yield $1 as method;
+        } else if /\w+/ {
+            // Gobble word chars to align the next iteration on a word boundary.
+        }
+
+        yield other;
+    }
+}

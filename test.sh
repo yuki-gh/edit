@@ -49,6 +49,13 @@ setup)
 	fi
 	;;
 
+awk)
+	# .awk
+	find ../protobuf/java ../binutils-2.41/gprof -name '*.awk' | sort | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
+	;;
+
 unity)
 	# .unity
 	find ../arfoundation-samples/Assets -name '*.unity' -o -name '*.prefab' -o -name '*.asset' | sort | head | while read -r f; do
