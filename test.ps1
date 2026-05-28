@@ -14,7 +14,7 @@ if ($args.Count -eq 0) {
 
 switch ($args[0]) {
 	"awk" {
-		Get-ChildItem "..\protobuf\java" -Recurse -Include *.awk  |
+		Get-ChildItem "..\machine-learning-examples" -Recurse -Include *.awk  |
 		Sort-Object FullName |
 			Select-Object -First 10 | ForEach-Object {
 				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more

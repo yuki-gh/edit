@@ -32,6 +32,7 @@ setup)
 	git clone https://github.com/waleedsial/SQL.git waleedsial-SQL
 	git clone https://github.com/Unity-Technologies/arfoundation-samples.git
 	git clone https://github.com/protocolbuffers/protobuf.git
+	git clone https://github.com/awk-utilities/machine-learning-examples.git
 
 	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
 	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
@@ -51,7 +52,7 @@ setup)
 
 awk)
 	# .awk
-	find ../protobuf/java ../binutils-2.41/gprof -name '*.awk' | sort | head | while read -r f; do
+	find ../machine-learning-examples -name '*.awk' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
