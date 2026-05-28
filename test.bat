@@ -14,7 +14,7 @@ if "%1"=="" (
 goto %1
 
 :awk
-for /r ..\machine-learning-examples %%f in (*.awk) do (
+for /r ..\awklibs %%f in (*.awk) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
 	pause
 )

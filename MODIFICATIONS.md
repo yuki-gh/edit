@@ -60,6 +60,10 @@ At-rules support is imperfect.
 
 ## Protocol Buffers (.proto)
 
+## AWK (.awk)
+
+GNU AWK extensions supported.
+
 ## XML
 
 `.htm`, `.jmx` and `.vbproj` added.
