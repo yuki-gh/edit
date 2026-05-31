@@ -1,0 +1,41 @@
+#[display_name = "Gradle"]
+#[path = "**/build.gradle"]
+#[path = "**/build.gradle.kts"]
+pub fn gradle() {
+    until /$/ {
+        yield other;
+
+        if /\/\/.*/ {
+            yield comment;
+        } else if /\/\*/ {
+            loop {
+                yield comment;
+                await input;
+                if /\*\// {
+                    yield comment;
+                    break;
+                }
+            }
+        } else if /'/ {
+            single_quote_string();
+        } else if /"/ {
+            double_quote_string();
+        } else if /(?:from|sourceSets|configurations|artifacts|jacocoTestReport|java|application|stage|println|allprojects|plugins|plugin|wrapper|repositories|type|distDocker|dependencies|buildConfig|buildscript)\>/ {
+            yield keyword.other;
+        } else if /(?i:double|float|boolean|short|long|byte|string|character|integer|int|char|as|map|file)\>/ {
+            yield keyword.other;
+        } else if /(?i:true|false|null)\>/ {
+            yield constant.language;
+        } else if /-?\d*\.\d+[fF]/ {
+            yield constant.numeric;
+        } else if /-?\d*\.\d+(e[+-]?\d+)?/ {
+            yield constant.numeric;
+        } else if /-?\d+[lLfF]?/ {
+            yield constant.numeric;
+        } else if /\w+/ {
+            // Gobble word chars to align the next iteration on a word boundary.
+        }
+
+        yield other;
+    }
+}

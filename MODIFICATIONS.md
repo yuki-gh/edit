@@ -64,6 +64,8 @@ At-rules support is imperfect.
 
 GNU AWK extensions supported.
 
+## Gradle (build.gradle, build.gradle.kts)
+
 ## XML
 
 `.htm`, `.jmx` and `.vbproj` added.

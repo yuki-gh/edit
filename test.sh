@@ -34,14 +34,17 @@ setup)
 	git clone https://github.com/protocolbuffers/protobuf.git
 	git clone https://github.com/awk-utilities/machine-learning-examples.git
 	git clone https://github.com/nestoris/awklibs.git
+	git clone https://github.com/gmazzo/gradle-buildconfig-plugin.git
+	git clone https://github.com/Transmode/gradle-docker.git
+	git clone https://github.com/heroku/heroku-buildpack-gradle.git
 
-	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
-	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
-	git clone git@github.com:yuki-gh/MonoDevelop-unofficial-ja.git
-	git clone git@github.com:yuki-gh/UnityEditor-unofficial-ja.git
-	git clone git@github.com:yuki-gh/arm64.git
-	git clone git@github.com:yuki-gh/riscv.git
-	git clone git@github.com:yuki-gh/retropc-tools.git
+#	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
+#	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
+#	git clone git@github.com:yuki-gh/MonoDevelop-unofficial-ja.git
+#	git clone git@github.com:yuki-gh/UnityEditor-unofficial-ja.git
+#	git clone git@github.com:yuki-gh/arm64.git
+#	git clone git@github.com:yuki-gh/riscv.git
+#	git clone git@github.com:yuki-gh/retropc-tools.git
 
 	if ! [ -d forstie ]
 	then
@@ -49,6 +52,13 @@ setup)
 		cd forstie
 		curl https://api.github.com/users/forstie/gists | jq -r '.[].files[].raw_url' | wget -i -
 	fi
+	;;
+
+gradle)
+	# build.gradle(Groovy)
+	find ../heroku-buildpack-gradle ../gradle-docker ../gradle-buildconfig-plugin -name 'build.gradle' | sort | head | while read -r f; do
+		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
 	;;
 
 awk)

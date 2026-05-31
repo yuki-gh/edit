@@ -13,6 +13,13 @@ if "%1"=="" (
 
 goto %1
 
+:gradle
+for /r ..\heroku-buildpack-gradle %%f in (build.gradle*) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :awk
 for /r ..\awklibs %%f in (*.awk) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more

@@ -13,6 +13,15 @@ if ($args.Count -eq 0) {
 }
 
 switch ($args[0]) {
+	"gradle" {
+		Get-ChildItem "..\heroku-buildpack-gradle", "..\gradle-docker", "..\gradle-buildconfig-plugin" -Recurse -Include build.gradle  |
+		Sort-Object FullName |
+			Select-Object -First 10 | ForEach-Object {
+				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
 	"awk" {
 		Get-ChildItem "..\awklibs", "..\machine-learning-examples" -Recurse -Include *.awk  |
 		Sort-Object FullName |
