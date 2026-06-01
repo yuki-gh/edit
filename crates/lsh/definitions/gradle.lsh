@@ -30,10 +30,12 @@ pub fn gradle() {
             single_quote_string();
         } else if /"/ {
             double_quote_string();
-        } else if /(?:\w+\.class)\>/ {
-            yield keyword.other;
-        } else if /(?:new\s+\w+)\>/ {
-            yield keyword.other;
+        } else if /(?:(\w+)\.class)\>/ {
+            yield $1 as keyword.other;
+            yield other;
+        } else if /(?:new\s+(\w+))\>/ {
+            yield $1 as keyword.other;
+            yield other;
         } else if /(?:type:\s*\w+)\>/ {
             yield keyword.other;
         } else if /(\w+)\s*\(/ {
