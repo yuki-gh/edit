@@ -2,6 +2,16 @@
 #[path = "**/build.gradle"]
 #[path = "**/build.gradle.kts"]
 pub fn gradle() {
+    if /\s*(task)\s+\w+/ {
+        yield $1 as keyword.other;
+        yield other;
+    } else if /\s*(task|import|apply)\s+/ {
+        yield keyword.other;
+    } else if /\s*(\w+)\s*\{/ {
+        yield $1 as keyword.other;
+        yield other;
+    }
+
     until /$/ {
         yield other;
 
@@ -20,9 +30,15 @@ pub fn gradle() {
             single_quote_string();
         } else if /"/ {
             double_quote_string();
-        } else if /(?:from|sourceSets|configurations|artifacts|jacocoTestReport|java|application|stage|println|allprojects|plugins|plugin|wrapper|repositories|type|distDocker|dependencies|buildConfig|buildscript)\>/ {
+        } else if /(?:\w+\.class)\>/ {
             yield keyword.other;
-        } else if /(?i:double|float|boolean|short|long|byte|string|character|integer|int|char|as|map|file)\>/ {
+        } else if /(?:new\s+\w+)\>/ {
+            yield keyword.other;
+        } else if /(?:type:\s*\w+)\>/ {
+            yield keyword.other;
+        } else if /(\w+)\s*\(/ {
+            yield $1 as method;
+        } else if /(?i:double|float|boolean|short|long|byte|string|character|char|integer|int)\>/ {
             yield keyword.other;
         } else if /(?i:true|false|null)\>/ {
             yield constant.language;
