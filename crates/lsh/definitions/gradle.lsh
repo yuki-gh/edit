@@ -29,7 +29,13 @@ pub fn gradle() {
         } else if /'/ {
             single_quote_string();
         } else if /"/ {
-            double_quote_string();
+            until /$/ {
+                yield string;
+                if /\\./ {}
+                else if /\$\{\w+\}/ { yield other; }
+                else if /"/ { yield string; break; }
+                await input;
+            }
         } else if /(?:(\w+)\.class)\>/ {
             yield $1 as keyword.other;
             yield other;
@@ -40,6 +46,8 @@ pub fn gradle() {
             yield keyword.other;
         } else if /(\w+)\s*\(/ {
             yield $1 as method;
+        } else if /(?:break|case|catch|continue|default|do|else|finally|for|goto|if|return|switch|throw|try|while|yield)\>/ {
+            yield keyword.control;
         } else if /(?i:double|float|boolean|short|long|byte|string|character|char|integer|int)\>/ {
             yield keyword.other;
         } else if /(?i:true|false|null)\>/ {
