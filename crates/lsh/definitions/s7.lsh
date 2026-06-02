@@ -4,7 +4,10 @@ pub fn gradle() {
     until /$/ {
         yield other;
 
-        if /;.*/ {
+        if /#\\space|#\\./ {
+            // character literal
+            yield constant.numeric;
+        } else if /;.*/ {
             yield comment;
         } else if /"/ {
             double_quote_string();
