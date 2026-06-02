@@ -13,6 +13,13 @@ if "%1"=="" (
 
 goto %1
 
+:s7
+for /r ..\s7 %%f in (*.scm) do (
+	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :gradle
 for /r ..\heroku-buildpack-gradle %%f in (build.gradle*) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more

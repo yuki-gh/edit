@@ -1,0 +1,41 @@
+#[display_name = "S7"]
+#[path = "**/*.scm"]
+pub fn gradle() {
+    until /$/ {
+        yield other;
+
+        if /;.*/ {
+            yield comment;
+        } else if /"/ {
+            double_quote_string();
+        } else if /('|,,@|,@|,|:)[A-Za-z0-9\.\*\/\+\-!\?<>=_]+/ {
+            // atom
+            yield constant.numeric;
+        } else if /\*[A-Za-z0-9\.\/\+\-!\?<>=_]+\*/ {
+            // system variable
+            yield constant.numeric;
+        } else if /\+[A-Za-z0-9\.\*\/\-!\?<>=_]+\+/ {
+            // system variable
+            yield constant.numeric;
+        } else if /(?:require|provide|lambda|set\!|cons|define|set-car\!|set-cdr\!|defined\?|eq\?)\>/ {
+            yield keyword.other;
+        } else if /(?:for-each|let\*|letrec|let|and|not|or|when|if|unless|do|call\/cc)\>/ {
+            yield keyword.control;
+        } else if /\(([a-z0-9\.\*\/\+\-!\?<>=_]+)( \))?/ {
+            // function/macro
+            yield $1 as method;
+        } else if /\((\+|-|\*|\/|>=|<=|>|<|=) / {
+            yield $1 as method;
+        } else if /(?:#t|#f)\>/ {
+            yield constant.language;
+        } else if /-?\d*\.\d+/ {
+            yield constant.numeric;
+        } else if /-?\d+/ {
+            yield constant.numeric;
+        } else if /\w+/ {
+            // Gobble word chars to align the next iteration on a word boundary.
+        }
+
+        yield other;
+    }
+}
