@@ -1,6 +1,6 @@
-#[display_name = "S7"]
+#[display_name = "Scheme"]
 #[path = "**/*.scm"]
-pub fn gradle() {
+pub fn scheme() {
     until /$/ {
         yield other;
 
@@ -18,8 +18,25 @@ pub fn gradle() {
                     break;
                 }
             }
+        } else if /#!/ {
+            loop {
+                yield comment;
+                await input;
+                if /!#/ {
+                    yield comment;
+                    break;
+                }
+            }
         } else if /"/ {
-            double_quote_string();
+            loop {
+                yield comment;
+                await input;
+                if /\\./ {
+                } else if /"/ {
+                    yield comment;
+                    break;
+                }
+            }
         } else if /('|,,@|,@|,|:)[A-Za-z0-9\.\*\/\+\-!\?<>=_]+/ {
             // atom
             yield constant.numeric;
@@ -37,12 +54,17 @@ pub fn gradle() {
             // special variable
             yield $1 as constant.numeric;
             yield other;
-        } else if /\((require|lambda\*|lambda|set\!|cons|define-macro|define-bacro\*|define-bacro|undefined\?|defined\?|define|vector-ref|vector-set\!|vector\?|vector|set-car\!|set-cdr\!|c[ad]+r|set|null\?|equal\?|pair\?|eq\?|list\?list|bignum|procedure\?|format|apply|eqv\?|memv|provided\?|provide|symbol\??|string\??|integer\??|boolean\??|real\??|float\??|char\??|c-pointer\?|memq)(\s+|$)/ {
+        } else if /\((undefined\?|provided\?|float\?|define-macro|defined\?)(\s+|$)/ {
             // TODO: closing paren
             yield $1 as keyword.other;
             yield other;
-        } else if /\((begin|case|for-each|let\*|letrec\*|letrec|let|and|not|or|when|if|else|unless|do|call\/cc|cond|return)(\s+|$)/ {
-            yield $1 as keyword.control;
+        } else if /\((zero\?|write-char|write|with-output-to-file|with-input-from-file|when|vector-set!|vector-ref|vector-length|vector-fill!|vector->list|vector\?|vector|values|unquote-splicing|unquote|unless|truncate|tan|syntax-rules|symbol->string|symbol\?|substring|string-set!|string-ref|string-length|string-fill!|string-copy|string-ci>=\?|string-ci>\?|string-ci=\?|string-ci<=\?|string-ci<\?|string-append|string->symbol|string->list|string>=\?|string>\?|string=\?|string<=\?|string<\?|string\?|string|sqrt|sin|set-cdr!|set-car!|set!|scheme-report-environment|round|reverse|remainder|real\?|read-char|read|rational\?|quotient|quote|quasiquote|procedure\?|positive\?|port\?|peek-char|parameterize|pair\?|output-port\?|or|open-output-file|open-input-file|odd\?|numerator|number\?|null-environment|null\?|not|newline|negative\?|modulo|memv|memq|member|map|make-vector|make-string|log|load|list->vector|list->string|list\?|list\*|list|let-values|let-syntax|letrec-syntax|letrec\*|letrec|let\*-values|let\*|let|length|lcm|lambda\*|lambda|interaction-environment|integer->char|integer\?|input-port\?|inexact->exact|inexact\?|if|guard|gcd|for-each|force|floor|expt|exp|exact->inexact|exact\?|even\?|eval|error|eqv\?|equal\?|eq\?|eof-object\?|dynamic-wind|do|display|denominator|delay|define-syntax|define|current-output-port|current-input-port|cos|cons|cond|complex\?|close-output-port|close-input-port|char-whitespace\?|char-upper-case\?|char-upcase|char-numeric\?|char-lower-case\?|char-downcase|char-ci>=\?|char-ci>\?|char-ci=\?|char-ci<=\?|char-ci<\?|char-alphabetic\?|char->integer|char>=\?|char>\?|char=\?|char<=\?|char<\?|char\?|ceiling|case|call-with-values|call-with-output-file|call-with-input-file|call-with-current-continuation|call\/cc|boolean\?|begin|atan|assv|assq|assoc|asin|apply|append|and|acos|abs)(\s+|$)/ {
+            // TODO: closing paren
+            yield $1 as keyword.other;
+            yield other;
+        } else if /\((symbol|set|require|real|provide|integer|format|float|else|char|c[ad]+r|boolean|bignum)(\s+|$)/ {
+            // TODO: closing paren
+            yield $1 as keyword.other;
             yield other;
         } else if /\(([a-z0-9\.\*\/\+\-!\?<>=_]+)( \))?/ {
             // function/macro
