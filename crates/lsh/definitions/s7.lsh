@@ -9,6 +9,15 @@ pub fn gradle() {
             yield constant.numeric;
         } else if /;.*/ {
             yield comment;
+        } else if /#\|/ {
+            loop {
+                yield comment;
+                await input;
+                if /\|#/ {
+                    yield comment;
+                    break;
+                }
+            }
         } else if /"/ {
             double_quote_string();
         } else if /('|,,@|,@|,|:)[A-Za-z0-9\.\*\/\+\-!\?<>=_]+/ {
@@ -20,9 +29,9 @@ pub fn gradle() {
         } else if /\+[A-Za-z0-9\.\*\/\-!\?<>=_]+\+/ {
             // system variable
             yield constant.numeric;
-        } else if /(?:require|provide|lambda|set\!|cons|define|set-car\!|set-cdr\!|defined\?|eq\?)\>/ {
+        } else if /(?:require|provide|lambda|set\!|cons|define|set-car\!|set-cdr\!|set|null\?|equal\?|pair\?|defined\?|eq\?|list|bignum|procedure\?|format|apply|c[ad]r|c[ad][ad]r|c[ad][ad][ad]r|eqv\?|memv|provided\?)\>/ {
             yield keyword.other;
-        } else if /(?:for-each|let\*|letrec|let|and|not|or|when|if|unless|do|call\/cc)\>/ {
+        } else if /(?:for-each|let\*|letrec\*|letrec|let|and|not|or|when|if|else|unless|do|call\/cc)\>/ {
             yield keyword.control;
         } else if /\(([a-z0-9\.\*\/\+\-!\?<>=_]+)( \))?/ {
             // function/macro
