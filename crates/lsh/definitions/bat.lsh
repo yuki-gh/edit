@@ -1,19 +1,38 @@
 #[display_name = "Batch file"]
 #[path = "**/*.bat"]
 #[path = "**/*.cmd"]
-// TODO: strings, variables
+// TODO: string, variables in echo, variables in set
 pub fn batch() {
+    if /@/ {}
+
     until /$/ {
         yield other;
 
-        if /(?:%[^%]+%|![^!]+!|%[0-9]|%~[A-Za-z_]+\w|%~\$PATH:[A-Za-z_]|%%?[A-Za-z_])/ {
+        if /%[^%]+%|![^!]+!/ {
             yield variable;
-        } else if /(rem|REM|::) .*/ {
+        } else if /%[0-9]/ {
+            yield variable;
+        } else if /%~[A-Za-z_]+\w/ {
+            yield variable;
+        } else if /%PATH:[\w=,\-]%/ {
+            yield variable;
+        } else if /%%?[A-Za-z_]/ {
+            yield variable;
+        } else if /(?i:rem)[^\w].*/ {
             yield comment;
-        } else if /(?:call|cmdextversion|defined|do|else|equ|errorlevel|exist|exit|for|geq|goto|gtr|if|in|leq|lss|neq|not)\>/ {
-            yield keyword.control;
-        } else if /(?:assoc|cd|chcp|chdir|cls|color|copy|date|del|dir|echo|endlocal|erase|ftype|md|mkdir|move|path|pause|popd|prompt|pushd|rd|ren|rmdir|set|setlocal|shift|start|time|title|type|ver|vol)\>/ {
+        } else if /(?i:rem)$/ {
+            yield comment;
+        } else if /::.*/ {
+            yield comment;
+        } else if /(?i:echo)\s+(?i:on|off)$/ {
             yield keyword.other;
+        } else if /((?i:echo))[^\w].*/ {
+            yield $1 as keyword.other;
+            yield string;
+        } else if /(?i:assoc|cd|chcp|chdir|cls|color|copy|date|del|dir|endlocal|erase|ftype|md|mkdir|move|path|pause|popd|prompt|pushd|rd|ren|rmdir|setlocal|set|shift|start|time|title|type|ver|vol)\>/ {
+            yield keyword.other;
+        } else if /(?i:call|cmdextversion|defined|do|else|equ|errorlevel|exist|exit|for|geq|goto|gtr|if|in|leq|lss|neq|not)\>/ {
+            yield keyword.control;
         } else if /:\s*[A-Za-z]\w*/ {
             yield variable;
         } else if /\w+/ {
