@@ -1,6 +1,31 @@
 @echo off
 REM --- String, Variable, Label, Command, Operator, Number, Delimiter, Comment ---
 
+echo
+echo on
+echo  off
+echo on off
+echo.
+echo.on
+echo echo
+echo.echo
+
+rem
+rem.
+rem rem
+rem.rem
+
+ %PATH%
+ !PATH!
+ %0
+ %~dp0
+ %PATH:str1=str2%
+ %PATH:~10,5%
+ %PATH:~-10%
+ %PATH:~0,-2%
+ %a
+ %%a
+
 :: Label
 :Start
 
