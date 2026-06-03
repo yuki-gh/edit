@@ -10,6 +10,7 @@ pub fn gradle() {
         } else if /;.*/ {
             yield comment;
         } else if /#\|/ {
+            // comment
             loop {
                 yield comment;
                 await input;
@@ -18,25 +19,41 @@ pub fn gradle() {
                     break;
                 }
             }
+        } else if /#!/ {
+            // comment (to hide shebang)
+            loop {
+                yield comment;
+                await input;
+                if /!#/ {
+                    yield comment;
+                    break;
+                }
+            }
         } else if /"/ {
             double_quote_string();
-        } else if /('|,,@|,@|,|:)[A-Za-z0-9\.\*\/\+\-!\?<>=_]+/ {
-            // atom
-            yield constant.numeric;
-        } else if /\*[A-Za-z0-9\.\/\+\-!\?<>=_]+\*/ {
+        } else if /\*[A-Za-z0-9!\$%&\+\-\.\/:<=>\?@\^_~]+\*/ {
             // special variable
             yield constant.numeric;
-        } else if /\((\*[A-Za-z0-9\.\/\+\-!\?<>=_]+\*)/ {
+        } else if /\((\*[A-Za-z0-9!\$%&\+\-\.\/:<=>\?@\^_~]+\*)/ {
             // special variable
             yield $1 as constant.numeric;
             yield other;
-        } else if /\+[A-Za-z0-9\.\*\/\-!\?<>=_]+\+/ {
+        } else if /\+[A-Za-z0-9!\$%&\*\-\.\/:<=>\?@\^_~]+\+/ {
             // special variable
             yield constant.numeric;
-        } else if /\((\+[A-Za-z0-9\.\*\/\-!\?<>=_]+\+)/ {
+        } else if /\((\+[A-Za-z0-9!\$%&\*\-\.\/:<=>\?@\^_~]+\+)/ {
             // special variable
             yield $1 as constant.numeric;
             yield other;
+        } else if /(''|'|,,|,)(#?:)?[A-Za-z0-9!\$%&\*\+\-\.\/:<=>\?@\^_~]+:?/ {
+            // symbol
+            yield constant.numeric;
+        } else if /#?:[A-Za-z0-9!\$%&\*\+\-\.\/:<=>\?@\^_~]+/ {
+            // symbol
+            yield constant.numeric;
+        } else if /[A-Za-z0-9!\$%&\*\+\-\.\/:<=>\?@\^_~]+:/ {
+            // symbol
+            yield constant.numeric;
         } else if /\((require|lambda\*|lambda|set\!|cons|define-macro|define-bacro\*|define-bacro|undefined\?|defined\?|define|vector-ref|vector-set\!|vector\?|vector|set-car\!|set-cdr\!|c[ad]+r|set|null\?|equal\?|pair\?|eq\?|list\?list|bignum|procedure\?|format|apply|eqv\?|memv|provided\?|provide|symbol\??|string\??|integer\??|boolean\??|real\??|float\??|char\??|c-pointer\?|memq)(\s+|$)/ {
             // TODO: closing paren
             yield $1 as keyword.other;
@@ -44,7 +61,7 @@ pub fn gradle() {
         } else if /\((begin|case|for-each|let\*|letrec\*|letrec|let|and|not|or|when|if|else|unless|do|call\/cc|cond|return)(\s+|$)/ {
             yield $1 as keyword.control;
             yield other;
-        } else if /\(([a-z0-9\.\*\/\+\-!\?<>=_]+)( \))?/ {
+        } else if /\(([A-Za-z0-9!\$%&\*\+\-\.\/:<=>\?@\^_~]+)( \))?/ {
             // function/macro
             // TODO: exclude let vars, lambda args, car of list
             yield $1 as method;
