@@ -12,6 +12,11 @@ if ($args.Count -eq 0) {
 	exit
 }
 
+if (Test-Path $args[0]) {
+	cargo run -p lsh-bin -- render --input $args[0] crates/lsh/definitions 2>$null | more
+	exit
+}
+
 switch ($args[0]) {
 	"s7" {
 		Get-ChildItem "..\s7" -Recurse -Include *.scm  |

@@ -11,6 +11,11 @@ if "%1"=="" (
 	exit /b
 )
 
+if exist "%1" (
+	cargo run -p lsh-bin -- render --input "%1" crates\lsh\definitions 2>nul | more
+	exit /b
+)
+
 goto %1
 
 :s7

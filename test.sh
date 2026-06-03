@@ -16,6 +16,12 @@ then
 	exit
 fi
 
+if [ -f "$1" ]
+then
+	cargo run -p lsh-bin -- render --input "$1" crates/lsh/definitions 2>/dev/null | less -r
+	exit
+fi
+
 case $1 in
 setup)
 	cd ..
