@@ -24,12 +24,21 @@ pub fn gradle() {
             // atom
             yield constant.numeric;
         } else if /\*[A-Za-z0-9\.\/\+\-!\?<>=_]+\*/ {
-            // system variable
+            // special variable
             yield constant.numeric;
+        } else if /\((\*[A-Za-z0-9\.\/\+\-!\?<>=_]+\*)/ {
+            // special variable
+            yield $1 as constant.numeric;
+            yield other;
         } else if /\+[A-Za-z0-9\.\*\/\-!\?<>=_]+\+/ {
-            // system variable
+            // special variable
             yield constant.numeric;
-        } else if /\((require|lambda\*|lambda|set\!|cons|define-macro|vector-ref|vector-set\!|set-car\!|set-cdr\!|set|null\?|equal\?|pair\?|eq\?|list|bignum|procedure\?|format|apply|c[ad]+r|eqv\?|memv|provided\?|provide|symbol\?|undefined\?|defined\?|define|string\?|vector\?|vector|integer\?|boolean\?|real\?|float\?|char\?|c-pointer\?|memq)(\s+|$)/ {
+        } else if /\((\+[A-Za-z0-9\.\*\/\-!\?<>=_]+\+)/ {
+            // special variable
+            yield $1 as constant.numeric;
+            yield other;
+        } else if /\((require|lambda\*|lambda|set\!|cons|define-macro|define-bacro\*|define-bacro|undefined\?|defined\?|define|vector-ref|vector-set\!|vector\?|vector|set-car\!|set-cdr\!|c[ad]+r|set|null\?|equal\?|pair\?|eq\?|list\?list|bignum|procedure\?|format|apply|eqv\?|memv|provided\?|provide|symbol\??|string\??|integer\??|boolean\??|real\??|float\??|char\??|c-pointer\?|memq)(\s+|$)/ {
+            // TODO: closing paren
             yield $1 as keyword.other;
             yield other;
         } else if /\((begin|case|for-each|let\*|letrec\*|letrec|let|and|not|or|when|if|else|unless|do|call\/cc|cond|return)(\s+|$)/ {
