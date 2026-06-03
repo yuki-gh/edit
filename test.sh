@@ -69,7 +69,7 @@ setup)
 	fi
 	;;
 
-s7)
+scm)
 	# S7
 	find ../s7 -name '*.scm' | sort | head | while read -r f; do
 		$lsh_cmd render --input "$f" crates/lsh/definitions 2>/dev/null | less -r

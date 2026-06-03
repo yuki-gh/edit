@@ -23,7 +23,7 @@ if (Test-Path $args[0]) {
 }
 
 switch ($args[0]) {
-	"s7" {
+	"scm" {
 		Get-ChildItem "..\s7" -Recurse -Include *.scm  |
 		Sort-Object FullName |
 			Select-Object -First 10 | ForEach-Object {

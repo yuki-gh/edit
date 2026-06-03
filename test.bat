@@ -21,7 +21,7 @@ if exist "%1" (
 
 goto %1
 
-:s7
+:scm
 for /r ..\s7 %%f in (*.scm) do (
 	%lsh_cmd% render --input "%%f" crates\lsh\definitions 2>nul | more
 	pause
