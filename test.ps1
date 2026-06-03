@@ -18,7 +18,7 @@ if ($args.Count -eq 0) {
 }
 
 if (Test-Path $args[0]) {
- 	& $lsh_bin @lsh_args render --input $args[0] crates/lsh/definitions 2>$null | more
+ 	& $lsh_bin @lsh_args render --input $args[0] crates/lsh/definitions
 	exit
 }
 

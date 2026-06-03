@@ -15,7 +15,7 @@ if "%1"=="" (
 )
 
 if exist "%1" (
-	%lsh_cmd% render --input "%1" crates\lsh\definitions 2>nul | more
+	%lsh_cmd% render --input "%1" crates\lsh\definitions
 	exit /b
 )
 

@@ -21,7 +21,7 @@ fi
 
 if [ -f "$1" ]
 then
-	$lsh_cmd render --input "$1" crates/lsh/definitions 2>/dev/null | less -r
+	$lsh_cmd render --input "$1" crates/lsh/definitions
 	exit
 fi
 
