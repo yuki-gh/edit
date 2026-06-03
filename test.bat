@@ -104,7 +104,7 @@ for /r .. %%f in (*.sln) do (
 exit /b
 
 :bat
-for /r .. %%f in (*.bat) do (
+for /r ..\protobuf %%f in (*.bat) do (
 	cargo run -p lsh-bin -- render --input "%%f" crates\lsh\definitions 2>nul | more
 	pause
 )

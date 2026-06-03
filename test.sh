@@ -69,7 +69,7 @@ s7)
 
 gradle)
 	# build.gradle(Groovy)
-	find ../heroku-buildpack-gradle ../gradle-docker ../gradle-buildconfig-plugin -name 'build.gradle' | sort | head | while read -r f; do
+	find ../*gradle* -name 'build.gradle' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
@@ -125,7 +125,7 @@ sql)
 
 el)
 	# .el
-	find /usr/share/emacs /usr/local/share/emacs /opt/homebrew/share/emacs -name '*.el' | sort | head | while read -r f; do
+	find /usr/share/emacs /usr/local/share/emacs /opt/homebrew/share/emacs $PREFIX/share/emacs -name '*.el' | sort | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
@@ -146,7 +146,7 @@ sln)
 
 bat)
 	# .bat
-	find .. -name highlighting-tests -prune -o -name '*.bat' -print | head | while read -r f; do
+	find ../protobuf ../*gradle* -name '*.bat' -print | head | while read -r f; do
 		cargo run -p lsh-bin -- render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;

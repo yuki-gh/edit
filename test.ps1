@@ -23,7 +23,7 @@ switch ($args[0]) {
 	}
 
 	"gradle" {
-		Get-ChildItem "..\heroku-buildpack-gradle", "..\gradle-docker", "..\gradle-buildconfig-plugin" -Recurse -Include build.gradle  |
+		Get-ChildItem "..\*gradle*" -Recurse -Include build.gradle  |
 		Sort-Object FullName |
 			Select-Object -First 10 | ForEach-Object {
 				cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
@@ -122,7 +122,7 @@ switch ($args[0]) {
 	}
 
 	"bat" {
-		Get-ChildItem ".." -Recurse -Include *.bat |
+		Get-ChildItem "..\protobuf", "..\*gradle*" -Recurse -Include *.bat |
 		Where-Object { $_.FullName -notmatch "highlighting-tests" } |
 		Select-Object -First 10 | ForEach-Object {
 			cargo run -p lsh-bin -- render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
