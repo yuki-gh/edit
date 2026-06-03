@@ -29,9 +29,9 @@ pub fn gradle() {
         } else if /\+[A-Za-z0-9\.\*\/\-!\?<>=_]+\+/ {
             // system variable
             yield constant.numeric;
-        } else if /(?:require|provide|lambda|set\!|cons|define|set-car\!|set-cdr\!|set|null\?|equal\?|pair\?|defined\?|eq\?|list|bignum|procedure\?|format|apply|c[ad]r|c[ad][ad]r|c[ad][ad][ad]r|eqv\?|memv|provided\?)\>/ {
+        } else if /(?:require|provide|lambda|set\!|cons|define-macro|vector-ref|vector-set\!|vector|define|set-car\!|set-cdr\!|set|null\?|equal\?|pair\?|defined\?|eq\?|list|bignum|procedure\?|format|apply|c[ad]r|c[ad][ad]r|c[ad][ad][ad]r|eqv\?|memv|provided\?|symbol\?)\>/ {
             yield keyword.other;
-        } else if /(?:for-each|let\*|letrec\*|letrec|let|and|not|or|when|if|else|unless|do|call\/cc)\>/ {
+        } else if /(?:begin|case|for-each|let\*|letrec\*|letrec|let|and|not|or|when|if|else|unless|do|call\/cc)\>/ {
             yield keyword.control;
         } else if /\(([a-z0-9\.\*\/\+\-!\?<>=_]+)( \))?/ {
             // function/macro
