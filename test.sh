@@ -46,6 +46,7 @@ setup)
 	git clone https://github.com/gmazzo/gradle-buildconfig-plugin.git
 	git clone https://github.com/Transmode/gradle-docker.git
 	git clone https://github.com/heroku/heroku-buildpack-gradle.git
+	git clone https://cm-gitlab.stanford.edu/bil/s7.git
 
 #	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
 #	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
@@ -60,12 +61,6 @@ setup)
 		mkdir forstie
 		cd forstie
 		curl https://api.github.com/users/forstie/gists | jq -r '.[].files[].raw_url' | wget -i -
-	fi
-
-	if ! [ -d s7 ]
-	then
-		wget https://ccrma.stanford.edu/software/s7/s7.tar.gz
-		tar xzvf s7.tar.gz
 	fi
 	;;
 
