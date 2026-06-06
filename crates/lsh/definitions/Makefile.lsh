@@ -1,5 +1,6 @@
 #[display_name = "Makefile"]
 #[path = "**/Makefile"]
+#[path = "**/*.mk"]
 pub fn makefile() {
     if /(\w+)\s*:?=/ {
         yield $1 as variable;
