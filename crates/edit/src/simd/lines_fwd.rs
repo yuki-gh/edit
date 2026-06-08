@@ -32,14 +32,11 @@ unsafe fn lines_fwd_raw(
     line: CoordType,
     line_stop: CoordType,
 ) -> (*const u8, CoordType) {
-    #[cfg(any(target_arch = "x86_64", target_arch = "loongarch64"))]
+    #[cfg(any(target_arch = "x86_64", target_arch = "loongarch64", target_arch = "riscv64"))]
     return unsafe { LINES_FWD_DISPATCH(beg, end, line, line_stop) };
 
     #[cfg(target_arch = "aarch64")]
     return unsafe { lines_fwd_neon(beg, end, line, line_stop) };
-
-    #[cfg(target_arch = "riscv64")]
-    return unsafe { lines_fwd_rv64(beg, end, line, line_stop) };
 
     #[allow(unreachable_code)]
     return unsafe { lines_fwd_fallback(beg, end, line, line_stop) };
@@ -68,7 +65,7 @@ unsafe fn lines_fwd_fallback(
     }
 }
 
-#[cfg(any(target_arch = "x86_64", target_arch = "loongarch64"))]
+#[cfg(any(target_arch = "x86_64", target_arch = "loongarch64", target_arch = "riscv64"))]
 static mut LINES_FWD_DISPATCH: unsafe fn(
     beg: *const u8,
     end: *const u8,
@@ -401,7 +398,26 @@ unsafe fn lines_fwd_neon(
 }
 
 #[cfg(target_arch = "riscv64")]
-unsafe fn lines_fwd_rv64(
+unsafe fn lines_fwd_dispatch(
+    beg: *const u8,
+    end: *const u8,
+    line: CoordType,
+    line_stop: CoordType,
+) -> (*const u8, CoordType) {
+    use std::arch::is_riscv_feature_detected;
+
+    let func = if is_riscv_feature_detected!("v") {
+        lines_fwd_rvv
+    } else {
+        lines_fwd_fallback
+    };
+    unsafe { LINES_FWD_DISPATCH = func };
+    unsafe { func(beg, end, line, line_stop) }
+}
+
+#[cfg(target_arch = "riscv64")]
+#[target_feature(enable = "v")]
+unsafe fn lines_fwd_rvv(
     mut beg: *const u8,
     end: *const u8,
     mut line: CoordType,

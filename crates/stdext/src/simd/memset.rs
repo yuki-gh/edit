@@ -52,14 +52,11 @@ pub fn memset<T: Copy>(dst: &mut [T], val: T) {
 
 #[inline(always)]
 fn memset_raw(beg: *mut u8, end: *mut u8, val: u64) {
-    #[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "loongarch64"))]
+    #[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "loongarch64", target_arch = "riscv64"))]
     return unsafe { MEMSET_DISPATCH(beg, end, val) };
 
     #[cfg(target_arch = "aarch64")]
     return unsafe { memset_neon(beg, end, val) };
-
-    #[cfg(target_arch = "riscv64")]
-    return unsafe { memset_rv64(beg, end, val) };
 
     #[allow(unreachable_code)]
     return unsafe { memset_fallback(beg, end, val) };
@@ -91,7 +88,7 @@ unsafe fn memset_fallback(mut beg: *mut u8, end: *mut u8, val: u64) {
     }
 }
 
-#[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "loongarch64"))]
+#[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "loongarch64", target_arch = "riscv64"))]
 static mut MEMSET_DISPATCH: unsafe fn(beg: *mut u8, end: *mut u8, val: u64) = memset_dispatch;
 
 #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
@@ -387,6 +384,20 @@ unsafe fn memset_neon(mut beg: *mut u8, end: *mut u8, val: u64) {
 }
 
 #[cfg(target_arch = "riscv64")]
+fn memset_dispatch(beg: *mut u8, end: *mut u8, val: u64) {
+    use std::arch::is_riscv_feature_detected;
+
+    let func = if is_riscv_feature_detected!("v") {
+        memset_rvv
+    } else {
+        memset_fallback
+    };
+    unsafe { MEMSET_DISPATCH = func };
+    unsafe { func(beg, end, val) }
+}
+
+#[cfg(target_arch = "riscv64")]
+#[target_feature(enable = "v")]
 unsafe fn memset_rv64(mut beg: *mut u8, end: *mut u8, val: u64) {
     unsafe {
         use std::arch::riscv64::*;

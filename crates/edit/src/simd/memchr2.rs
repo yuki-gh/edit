@@ -21,14 +21,11 @@ pub fn memchr2(needle1: u8, needle2: u8, haystack: &[u8], offset: usize) -> usiz
 }
 
 unsafe fn memchr2_raw(needle1: u8, needle2: u8, beg: *const u8, end: *const u8) -> *const u8 {
-    #[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "loongarch64"))]
+    #[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "loongarch64", target_arch = "riscv64"))]
     return unsafe { MEMCHR2_DISPATCH(needle1, needle2, beg, end) };
 
     #[cfg(target_arch = "aarch64")]
     return unsafe { memchr2_neon(needle1, needle2, beg, end) };
-
-    #[cfg(target_arch = "riscv64")]
-    return unsafe { memchr2_rv64(needle1, needle2, beg, end) };
 
     #[allow(unreachable_code)]
     return unsafe { memchr2_fallback(needle1, needle2, beg, end) };
@@ -56,7 +53,7 @@ unsafe fn memchr2_fallback(
 // itself to the correct implementation on the first call. This reduces binary size.
 // It would also reduce branches if we had >2 implementations (a jump still needs to be predicted).
 // NOTE that this ONLY works if Control Flow Guard is disabled on Windows.
-#[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "loongarch64"))]
+#[cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "loongarch64", target_arch = "riscv64"))]
 static mut MEMCHR2_DISPATCH: unsafe fn(
     needle1: u8,
     needle2: u8,
@@ -225,7 +222,21 @@ unsafe fn memchr2_neon(needle1: u8, needle2: u8, mut beg: *const u8, end: *const
 }
 
 #[cfg(target_arch = "riscv64")]
-unsafe fn memchr2_rv64(
+unsafe fn memchr2_dispatch(needle1: u8, needle2: u8, beg: *const u8, end: *const u8) -> *const u8 {
+    use std::arch::is_riscv_feature_detected;
+
+    let func = if is_riscv_feature_detected!("v") {
+         memchr2_rvv
+    } else {
+        memchr2_fallback
+    };
+    unsafe { MEMCHR2_DISPATCH = func };
+    unsafe { func(needle1, needle2, beg, end) }
+}
+
+#[cfg(target_arch = "riscv64")]
+#[target_feature(enable = "v")]
+unsafe fn memchr2_rvv(
     needle1: u8,
     needle2: u8,
     mut beg: *const u8,
