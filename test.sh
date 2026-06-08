@@ -129,9 +129,22 @@ sql)
 
 el)
 	# .el
-	find /usr/share/emacs /usr/local/share/emacs /opt/homebrew/share/emacs $PREFIX/share/emacs -name '*.el' | sort | head | while read -r f; do
-		$lsh_cmd render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	EMACS_DIR=
+	for d in "${PREFIX:-/usr}/share/emacs" /usr/local/share/emacs /opt/homebrew/share/emacs
+	do
+		[ -d "$d" ] && EMACS_DIR="$d"
 	done
+	if [ -n "$EMACS_DIR" ]
+	then
+		case $(uname -o) in
+		Cygwin|Msys)
+			EMACS_DIR=$(cygpath -aw "$EMACS_DIR")
+			;;
+		esac
+		find "$EMACS_DIR" -name '*.el' | sort | head | while read -r f; do
+			$lsh_cmd render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+		done
+	fi
 	;;
 
 bas)
