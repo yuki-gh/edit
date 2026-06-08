@@ -132,7 +132,11 @@ el)
 	EMACS_DIR=
 	for d in "${PREFIX:-/usr}/share/emacs" /usr/local/share/emacs /opt/homebrew/share/emacs
 	do
-		[ -d "$d" ] && EMACS_DIR="$d"
+		if [ -d "$d" ]
+		then
+			EMACS_DIR="$d"
+			break
+		fi
 	done
 	if [ -n "$EMACS_DIR" ]
 	then
