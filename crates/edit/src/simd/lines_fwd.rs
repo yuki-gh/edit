@@ -38,6 +38,9 @@ unsafe fn lines_fwd_raw(
     #[cfg(target_arch = "aarch64")]
     return unsafe { lines_fwd_neon(beg, end, line, line_stop) };
 
+    #[cfg(target_arch = "riscv64")]
+    return unsafe { lines_fwd_rv64(beg, end, line, line_stop) };
+
     #[allow(unreachable_code)]
     return unsafe { lines_fwd_fallback(beg, end, line, line_stop) };
 }
@@ -394,6 +397,32 @@ unsafe fn lines_fwd_neon(
         }
 
         lines_fwd_fallback(beg, end, line, line_stop)
+    }
+}
+
+#[cfg(target_arch = "riscv64")]
+unsafe fn lines_fwd_rv64(
+    mut beg: *const u8,
+    end: *const u8,
+    mut line: CoordType,
+    line_stop: CoordType,
+) -> (*const u8, CoordType) {
+    unsafe {
+        use std::arch::riscv64::*;
+
+        if line < line_stop {
+            while !ptr::eq(beg, end) {
+                let c = *beg;
+                beg = beg.add(1);
+                if c == b'\n' {
+                    line += 1;
+                    if line == line_stop {
+                        break;
+                    }
+                }
+            }
+        }
+        (beg, line)
     }
 }
 

@@ -27,6 +27,9 @@ unsafe fn memchr2_raw(needle1: u8, needle2: u8, beg: *const u8, end: *const u8) 
     #[cfg(target_arch = "aarch64")]
     return unsafe { memchr2_neon(needle1, needle2, beg, end) };
 
+    #[cfg(target_arch = "riscv64")]
+    return unsafe { memchr2_rv64(needle1, needle2, beg, end) };
+
     #[allow(unreachable_code)]
     return unsafe { memchr2_fallback(needle1, needle2, beg, end) };
 }
@@ -218,6 +221,27 @@ unsafe fn memchr2_neon(needle1: u8, needle2: u8, mut beg: *const u8, end: *const
         }
 
         memchr2_fallback(needle1, needle2, beg, end)
+    }
+}
+
+#[cfg(target_arch = "riscv64")]
+unsafe fn memchr2_rv64(
+    needle1: u8,
+    needle2: u8,
+    mut beg: *const u8,
+    end: *const u8,
+) -> *const u8 {
+    unsafe {
+        use std::arch::riscv64::*;
+
+        while !ptr::eq(beg, end) {
+            let ch = *beg;
+            if ch == needle1 || ch == needle2 {
+                break;
+            }
+            beg = beg.add(1);
+        }
+        beg
     }
 }
 

@@ -58,6 +58,9 @@ fn memset_raw(beg: *mut u8, end: *mut u8, val: u64) {
     #[cfg(target_arch = "aarch64")]
     return unsafe { memset_neon(beg, end, val) };
 
+    #[cfg(target_arch = "riscv64")]
+    return unsafe { memset_rv64(beg, end, val) };
+
     #[allow(unreachable_code)]
     return unsafe { memset_fallback(beg, end, val) };
 }
@@ -369,6 +372,33 @@ unsafe fn memset_neon(mut beg: *mut u8, end: *mut u8, val: u64) {
             beg.cast::<u64>().write_unaligned(val);
             end.sub(8).cast::<u64>().write_unaligned(val);
         } else if remaining >= 4 {
+            // 4-7 bytes remaining
+            beg.cast::<u32>().write_unaligned(val as u32);
+            end.sub(4).cast::<u32>().write_unaligned(val as u32);
+        } else if remaining >= 2 {
+            // 2-3 bytes remaining
+            beg.cast::<u16>().write_unaligned(val as u16);
+            end.sub(2).cast::<u16>().write_unaligned(val as u16);
+        } else if remaining >= 1 {
+            // 1 byte remaining
+            beg.write(val as u8);
+        }
+    }
+}
+
+#[cfg(target_arch = "riscv64")]
+unsafe fn memset_rv64(mut beg: *mut u8, end: *mut u8, val: u64) {
+    unsafe {
+        use std::arch::riscv64::*;
+        let mut remaining = end.offset_from_unsigned(beg);
+
+        while remaining >= 8 {
+            beg.cast::<u64>().write_unaligned(val);
+            beg = beg.add(8);
+            remaining -= 8;
+        }
+
+        if remaining >= 4 {
             // 4-7 bytes remaining
             beg.cast::<u32>().write_unaligned(val as u32);
             end.sub(4).cast::<u32>().write_unaligned(val as u32);
