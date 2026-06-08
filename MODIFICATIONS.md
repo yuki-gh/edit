@@ -1,7 +1,9 @@
 
 # Microsoft Edit (forked)
 
-## SQL (.sql)
+## Syntax highlighting
+
+### SQL (.sql)
 
 - MySQL
 - PostgreSQL
@@ -18,9 +20,9 @@
 There's a bug in LSH runtime that cannot handle some SQL string literals well.
 
 
-## VisualStudio solution (.sln)
+### VisualStudio solution (.sln)
 
-## Microsoft BASIC (.bas)
+### Microsoft BASIC (.bas)
 
 Good old 1980's Microsoft BASIC (and alikes) on 8-bit PCs.
 
@@ -28,61 +30,61 @@ Highlighted keywords are those in GitHub plus dozens of common keywords such as 
 
 Line numbers and integer constants are treated differently.
 
-## Dockerfile
+### Dockerfile
 
 Variable references are highlighted.
 
-## Emacs Lisp (.el)
+### Emacs Lisp (.el)
 
 Highlighted keywords are those in GitHub plus dozens of common keywords.
 
-## MS-DOS/Windows Batch File (.bat)
+### MS-DOS/Windows Batch File (.bat)
 
 Built-in commands are highlighted.
 
-## Makefile
+### Makefile
 
 Variable references and phony targets are highlighted.
 
-## GNU gettext (.po)
+### GNU gettext (.po)
 
 C/C++/Java style placeholders (`%s` etc) and C#/.NET style ones (`{0}` etc) are highlighted.
 
-## Unity ShaderLab (.shader)
+### Unity ShaderLab (.shader)
 
-## Unity HLSL (.hlsl, .cginc)
+### Unity HLSL (.hlsl, .cginc)
 
 Modified C LSH.
 
-## CSS (.css)
+### CSS (.css)
 
 At-rules support is imperfect.
 
-## Protocol Buffers (.proto)
+### Protocol Buffers (.proto)
 
-## AWK (.awk)
+### AWK (.awk)
 
 GNU AWK extensions supported.
 
-## Gradle (build.gradle, build.gradle.kts)
+### Gradle (build.gradle, build.gradle.kts)
 
-## XML
+### XML
 
 `.htm`, `.jmx` and `.vbproj` added.
 
-## YAML
+### YAML
 
 Unity YAML (`.meta`, `.asset`, `.unity`, `.prefab`, `.anim`, `.mat` etc.) added.
 
-## JSON
+### JSON
 
 Unreal Engine (`.uproject`, `.uplugin`) and Unity (`.asmdef`, `.shadergraph`, .`shadersubgraph`) added.
 
-## properties
+### properties
 
 `.toml` added.
 
-## Test script
+### Test script
 
 1. Run `./test.sh` (or .ps1, .bat) without any parameters to test sample scripts in `assets/highlighting-tests/`
 2. Run `./test.sh setup` first to obtain sample scripts in sibling directories.
@@ -106,6 +108,14 @@ Unreal Engine (`.uproject`, `.uplugin`) and Unity (`.asmdef`, `.shadergraph`, .`
 - Windows Batch
   - no `setup` target
   - look for Cygwin/MSYS2 Emacs Lisp for `el` target
+
+## RISC-V optimization
+
+- edit/src/simd/
+  - lines_bwd.rs
+  - lines_fwd.rs
+  - memchr2.rs
+- stdext/src/simd/memset.rs
 
 ## misc.
 
