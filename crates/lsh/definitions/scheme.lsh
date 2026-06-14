@@ -43,6 +43,9 @@ pub fn scheme() {
         } else if /\*[A-Za-z0-9\.\/\+\-!\?<>=_]+\*/ {
             // special variable
             yield constant.numeric;
+        } else if /<[A-Za-z0-9\.\*\/\+\-!\?=_]+>/ {
+            // class
+            yield constant.numeric;
         } else if /\((\*[A-Za-z0-9\.\/\+\-!\?<>=_]+\*)/ {
             // special variable
             yield $1 as constant.numeric;
