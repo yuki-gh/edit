@@ -4,7 +4,7 @@ pub fn scheme() {
     until /$/ {
         yield other;
 
-        if /#\\space|#\\./ {
+        if /#\\\w+|#\\./ {
             // character literal
             yield constant.numeric;
         } else if /;.*/ {
