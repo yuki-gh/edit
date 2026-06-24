@@ -1,7 +1,7 @@
 #[display_name = "Properties"]
 // ini
 #[path = "**/*.ini"]
-#[path = "**/*.toml"]
+//#[path = "**/*.toml"]
 // git
 #[path = "**/.config/git/config"]
 #[path = "**/.git/config"]

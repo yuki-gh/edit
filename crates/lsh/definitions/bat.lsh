@@ -1,6 +1,6 @@
 #[display_name = "Batch file"]
-#[path = "**/*.bat"]
-#[path = "**/*.cmd"]
+//#[path = "**/*.bat"]
+//#[path = "**/*.cmd"]
 // TODO: string, variables in echo, variables in set
 pub fn batch() {
     if /@/ {}
