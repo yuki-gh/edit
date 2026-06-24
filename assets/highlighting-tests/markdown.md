@@ -84,6 +84,16 @@ int main() {
 }
 ```
 
+```batch
+@echo off
+
+if not "%~1"=="" (
+  echo Hello %~1!
+) else (
+  echo Hi, I'm Batch, nice to meet you! 
+)
+```
+
 ```javascript
 export function greet(name) {
   return `hello ${name}`;

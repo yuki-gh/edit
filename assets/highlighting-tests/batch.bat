@@ -29,6 +29,7 @@ rem.rem
 :: Label
 :Start
 
+
 :: Variable assignment and usage
 set "VAR1=Hello"
 set VAR2=World
@@ -38,6 +39,9 @@ set "STR=Batch ^& CMD!"
 
 :: Arithmetic operation (number, operator)
 set /a SUM=5+10
+
+:: Arguments (variable, string)
+echo Message from %0, referred to as "%~n0"
 
 :: IF statement (keyword, operator, string, variable)
 if "%VAR1%"=="Hello" (
