@@ -47,6 +47,7 @@ setup)
 	git clone https://github.com/Transmode/gradle-docker.git
 	git clone https://github.com/heroku/heroku-buildpack-gradle.git
 	git clone https://cm-gitlab.stanford.edu/bil/s7.git
+	git clone https://github.com/Hamayama/Gauche-gl-examples.git
 
 #	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
 #	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
@@ -65,8 +66,8 @@ setup)
 	;;
 
 scm)
-	# S7
-	find ../s7 -name '*.scm' | sort | head | while read -r f; do
+	# S7, Gauche
+	find ../Gauche-gl-examples ../s7 -name '*.scm' | sort | head | while read -r f; do
 		$lsh_cmd render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
 	done
 	;;
