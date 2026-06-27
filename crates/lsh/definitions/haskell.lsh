@@ -1,0 +1,61 @@
+#[display_name = "Haskell"]
+#[path = "**/*.hs"]
+pub fn haskell() {
+    until /$/ {
+        yield other;
+
+        if /--.*/ {
+            yield comment;
+        } else if /\{-/ {
+            loop {
+                yield comment;
+                await input;
+                if /-\}/ { yield comment; break; }
+            }
+        } else if /"/ {
+            until /$/ {
+                yield string;
+                if /\\./ {}
+                else if /"/ { yield string; break; }
+                await input;
+            }
+        } else if /\\\w+/ {
+             yield other;
+        } else if /(?:case|default|do|else|except|if|then|return|otherwise|try)\>/ {
+            yield keyword.control;
+        } else if /(?:class|data|deriving|foreign|import|infixl|infixr|infix|instance|in|let|module|newtype|of|type|where|_|qualified|as|hiding)\>/ {
+            yield keyword.other;
+        } else if /(?:Bool|Char|String|Integer|Int|Float|Double)\>/ {
+            // data types
+            yield keyword.other;
+        } else if /(?:length|head|last|tail|init|take|takeWhile|drop|dropWhile|reverse|map|elem|notElem|fst|snd|sort|minimum|maximum|forall)\>/ {
+            // list/tuple op
+            yield method;
+        } else if /(?:show|putStrLn|putStr)\>/ {
+            // some funcs
+            yield method;
+        } else if /(?:div|mod|rem|quot|not|seq)\>/ {
+            // numeric op
+            yield method;
+        } else if /(?:True|False)\>/ {
+            yield constant.language;
+        } else if /(?i:(?:-|\+|\s*)(?:0x[\da-fA-F_]+|0b[01_]+|0o[0-7_]+|[\d_]+\.?[\d_]*|\.[\d_]+)(?:e[+-]?[\d_]+)?j?)/ {
+            if /\w+/ {
+                // Invalid numeric literal
+            } else {
+                yield constant.numeric;
+            }
+        } else if /[\w']+/ {
+            // FIXME
+            yield other;
+        } else if /'[^']+'/ {
+            // FIXME
+             yield string;
+        } else if /\w+/ {
+            // Gobble word chars to align the next iteration on a word boundary.
+        }
+
+        yield other;
+    }
+}
+

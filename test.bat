@@ -21,6 +21,13 @@ if exist "%1" (
 
 goto %1
 
+:hs
+for /r ..\Functional-Programming %%f in (*.hs) do (
+	%lsh_cmd% render --input "%%f" crates\lsh\definitions 2>nul | more
+	pause
+)
+exit /b
+
 :scm
 for /r ..\Gauche-gl-examples %%f in (*.scm) do (
 	%lsh_cmd% render --input "%%f" crates\lsh\definitions 2>nul | more

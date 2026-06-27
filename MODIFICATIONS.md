@@ -68,6 +68,8 @@ GNU AWK extensions supported.
 
 ### Gradle (build.gradle, build.gradle.kts)
 
+### Haskell
+
 ### XML
 
 `.htm`, `.jmx` and `.vbproj` added.

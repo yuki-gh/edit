@@ -48,6 +48,10 @@ setup)
 	git clone https://github.com/heroku/heroku-buildpack-gradle.git
 	git clone https://cm-gitlab.stanford.edu/bil/s7.git
 	git clone https://github.com/Hamayama/Gauche-gl-examples.git
+	git clone https://github.com/mark-watson/haskell_book.git
+	git clone https://github.com/caiorss/Functional-Programming.git
+	git clone https://github.com/sdiehl/wiwinwlh.git
+	git clone https://github.com/bravit/hid-examples.git
 
 #	git clone git@github.com:yuki-gh/MySQL-unofficial-ja.git
 #	git clone git@github.com:yuki-gh/JMeter-unofficial-ja.git
@@ -63,6 +67,13 @@ setup)
 		cd forstie
 		curl https://api.github.com/users/forstie/gists | jq -r '.[].files[].raw_url' | wget -i -
 	fi
+	;;
+
+hs)
+	# Haskell
+	find ../Functional-Programming ../haskell_book ../hid-examples ../wiwinwlh -name '*.hs' | sort | head | while read -r f; do
+		$lsh_cmd render --input "$f" crates/lsh/definitions 2>/dev/null | less -r
+	done
 	;;
 
 scm)

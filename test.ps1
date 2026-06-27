@@ -23,6 +23,15 @@ if (Test-Path $args[0]) {
 }
 
 switch ($args[0]) {
+	"hs" {
+		Get-ChildItem "../Functional-Programming", "../haskell_book", "../hid-examples", "../wiwinwlh" -Recurse -Include *.hs  |
+		Sort-Object FullName |
+			Select-Object -First 10 | ForEach-Object {
+				& $lsh_bin @lsh_args render --input "$($_.FullName)" crates/lsh/definitions 2>$null | more
+				pause
+			}
+	}
+
 	"scm" {
 		Get-ChildItem "..\Gauche-gl-examples", "..\s7" -Recurse -Include *.scm  |
 		Sort-Object FullName |
