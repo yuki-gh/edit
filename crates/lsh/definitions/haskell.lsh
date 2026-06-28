@@ -28,10 +28,10 @@ pub fn haskell() {
         } else if /(?:Bool|Char|String|Integer|Int|Float|Double)\>/ {
             // data types
             yield keyword.other;
-        } else if /(?:length|head|last|tail|init|take|takeWhile|drop|dropWhile|reverse|map|elem|notElem|fst|snd|sort|minimum|maximum|forall)\>/ {
+        } else if /(?:length|head|last|tail|init|take|takeWhile|drop|dropWhile|reverse|map|elem|notElem|fst|snd|zip|minimum|maximum|forall|sum|product|null|cycle|repeat|replicate)\>/ {
             // list/tuple op
             yield method;
-        } else if /(?:show|putStrLn|putStr)\>/ {
+        } else if /(?:show|putStrLn|putStr|getLine|print|unwords)\>/ {
             // some funcs
             yield method;
         } else if /(?:div|mod|rem|quot|not|seq)\>/ {
